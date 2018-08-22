@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Models\DatabaseContext.Context.cs">
       <AutoGen>True</AutoGen>
@@ -195,6 +196,7 @@
     <Compile Include="Models\Ressuply.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WarehouseStorage.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
