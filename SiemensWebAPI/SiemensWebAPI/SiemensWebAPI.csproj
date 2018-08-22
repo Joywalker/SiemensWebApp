@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\StorageManagementController.cs" />
     <Compile Include="Models\DatabaseContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

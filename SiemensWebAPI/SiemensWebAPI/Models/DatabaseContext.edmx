@@ -54,7 +54,7 @@
           <Property Name="ID_warehouse" Type="int" Nullable="false" />
           <Property Name="ID_compartment" Type="int" Nullable="false" />
           <Property Name="ID_feedstock" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Quantity_Held" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <Association Name="FK_Ressuply_WarehouseStorage">
           <End Role="WarehouseStorage" Type="Self.WarehouseStorage" Multiplicity="1" />
@@ -146,8 +146,8 @@
           <Property Name="ID_warehouse" Type="Int32" Nullable="false" />
           <Property Name="ID_compartment" Type="Int32" Nullable="false" />
           <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ressuply" Relationship="DbContext.FK_Ressuply_WarehouseStorage" FromRole="WarehouseStorage" ToRole="Ressuply" />
+          <Property Name="Quantity_Held" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Ressuply_WarehouseStorage">
           <End Type="DbContext.WarehouseStorage" Role="WarehouseStorage" Multiplicity="1" />
@@ -216,7 +216,7 @@
           <EntitySetMapping Name="WarehouseStorages">
             <EntityTypeMapping TypeName="DbContext.WarehouseStorage">
               <MappingFragment StoreEntitySet="WarehouseStorage">
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Quantity_Held" ColumnName="Quantity_Held" />
                 <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
                 <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
                 <ScalarProperty Name="ID_warehouse" ColumnName="ID_warehouse" />

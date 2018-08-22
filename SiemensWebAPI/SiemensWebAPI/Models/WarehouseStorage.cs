@@ -17,7 +17,7 @@ namespace SiemensWebAPI.Models
         public int ID_warehouse { get; set; }
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
-        public string Quantity { get; set; }
+        public string Quantity_Held { get; set; }
     
         public virtual Ressuply Ressuply { get; set; }
     }
