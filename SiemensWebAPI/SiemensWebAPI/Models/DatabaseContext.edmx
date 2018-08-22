@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Feedstock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="BagSize" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ressuply">
+          <Key>
+            <PropertyRef Name="ID_warehouse" />
+            <PropertyRef Name="ID_compartment" />
+          </Key>
+          <Property Name="ID_warehouse" Type="int" Nullable="false" />
+          <Property Name="ID_compartment" Type="int" Nullable="false" />
+          <Property Name="ID_feedstock" Type="int" Nullable="false" />
+          <Property Name="DateOfRessuply" Type="datetime" Nullable="false" />
+          <Property Name="Quantity" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DateOfExpiration" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserAccounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CNP" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Employee_ID" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="UserRole" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WarehouseStorage">
+          <Key>
+            <PropertyRef Name="ID_warehouse" />
+            <PropertyRef Name="ID_compartment" />
+          </Key>
+          <Property Name="ID_warehouse" Type="int" Nullable="false" />
+          <Property Name="ID_compartment" Type="int" Nullable="false" />
+          <Property Name="ID_feedstock" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Ressuply_WarehouseStorage">
+          <End Role="WarehouseStorage" Type="Self.WarehouseStorage" Multiplicity="1" />
+          <End Role="Ressuply" Type="Self.Ressuply" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WarehouseStorage">
+              <PropertyRef Name="ID_warehouse" />
+              <PropertyRef Name="ID_compartment" />
+            </Principal>
+            <Dependent Role="Ressuply">
+              <PropertyRef Name="ID_warehouse" />
+              <PropertyRef Name="ID_compartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbContextStoreContainer">
+          <EntitySet Name="Feedstock" EntityType="Self.Feedstock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ressuply" EntityType="Self.Ressuply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarehouseStorage" EntityType="Self.WarehouseStorage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ressuply_WarehouseStorage" Association="Self.FK_Ressuply_WarehouseStorage">
+            <End Role="WarehouseStorage" EntitySet="WarehouseStorage" />
+            <End Role="Ressuply" EntitySet="Ressuply" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Feedstock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BagSize" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CNP" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Employee_ID" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRole" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Feedstocks" EntityType="Self.Feedstock" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+          <EntitySet Name="Ressuplies" EntityType="DbContext.Ressuply" />
+          <EntitySet Name="WarehouseStorages" EntityType="DbContext.WarehouseStorage" />
+          <AssociationSet Name="FK_Ressuply_WarehouseStorage" Association="DbContext.FK_Ressuply_WarehouseStorage">
+            <End Role="WarehouseStorage" EntitySet="WarehouseStorages" />
+            <End Role="Ressuply" EntitySet="Ressuplies" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ressuply">
+          <Key>
+            <PropertyRef Name="ID_warehouse" />
+            <PropertyRef Name="ID_compartment" />
+          </Key>
+          <Property Name="ID_warehouse" Type="Int32" Nullable="false" />
+          <Property Name="ID_compartment" Type="Int32" Nullable="false" />
+          <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
+          <Property Name="DateOfRessuply" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfExpiration" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="WarehouseStorage" Relationship="DbContext.FK_Ressuply_WarehouseStorage" FromRole="Ressuply" ToRole="WarehouseStorage" />
+        </EntityType>
+        <EntityType Name="WarehouseStorage">
+          <Key>
+            <PropertyRef Name="ID_warehouse" />
+            <PropertyRef Name="ID_compartment" />
+          </Key>
+          <Property Name="ID_warehouse" Type="Int32" Nullable="false" />
+          <Property Name="ID_compartment" Type="Int32" Nullable="false" />
+          <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ressuply" Relationship="DbContext.FK_Ressuply_WarehouseStorage" FromRole="WarehouseStorage" ToRole="Ressuply" />
+        </EntityType>
+        <Association Name="FK_Ressuply_WarehouseStorage">
+          <End Type="DbContext.WarehouseStorage" Role="WarehouseStorage" Multiplicity="1" />
+          <End Type="DbContext.Ressuply" Role="Ressuply" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WarehouseStorage">
+              <PropertyRef Name="ID_warehouse" />
+              <PropertyRef Name="ID_compartment" />
+            </Principal>
+            <Dependent Role="Ressuply">
+              <PropertyRef Name="ID_warehouse" />
+              <PropertyRef Name="ID_compartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbContextStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Feedstocks">
+            <EntityTypeMapping TypeName="DbContext.Feedstock">
+              <MappingFragment StoreEntitySet="Feedstock">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="DbContext.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BagSize" ColumnName="BagSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="DbContext.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccounts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CNP" ColumnName="CNP" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ressuplies">
+            <EntityTypeMapping TypeName="DbContext.Ressuply">
+              <MappingFragment StoreEntitySet="Ressuply">
+                <ScalarProperty Name="DateOfExpiration" ColumnName="DateOfExpiration" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DateOfRessuply" ColumnName="DateOfRessuply" />
+                <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
+                <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
+                <ScalarProperty Name="ID_warehouse" ColumnName="ID_warehouse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehouseStorages">
+            <EntityTypeMapping TypeName="DbContext.WarehouseStorage">
+              <MappingFragment StoreEntitySet="WarehouseStorage">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
+                <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
+                <ScalarProperty Name="ID_warehouse" ColumnName="ID_warehouse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
