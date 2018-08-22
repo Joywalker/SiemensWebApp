@@ -28,7 +28,7 @@ namespace SiemensWebAPI.Controllers
                                           warehouse.Quantity_Held,
                                           fs.Name,
                                           rs.DateOfRessuply,
-                                          rs.Quantity
+                                          rs.Quantity_Bought
                                       }).ToList();
                     return Ok(entryPoint);
                 }
