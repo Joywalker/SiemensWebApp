@@ -38,5 +38,24 @@ namespace SiemensWebAPI.Controllers
             }
             return Ok();
         }
+
+        [Route("api/User/GetAll")]
+        [HttpGet]
+        public IHttpActionResult GetAllUsers()
+        {
+            try
+            {
+                using (DatabaseContext dbctx = new DatabaseContext())
+                {
+                    var allUsers = dbctx.UserAccounts.ToList();
+                    return Ok(allUsers);
+                }
+            }
+            catch (Exception ex)
+            {
+                // treat ex
+            }
+            return Ok();
+        }
     }
 }
