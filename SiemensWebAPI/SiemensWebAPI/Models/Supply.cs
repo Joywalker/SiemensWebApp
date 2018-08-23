@@ -18,14 +18,9 @@ namespace SiemensWebAPI.Models
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
         public System.DateTime DateOfRessuply { get; set; }
-<<<<<<< HEAD:SiemensWebAPI/SiemensWebAPI/Models/Ressuply.cs
         public Nullable<System.DateTime> DateOfExpiration { get; set; }
         public string Quantity_Bought { get; set; }
-=======
         public string Quantity { get; set; }
-        public System.DateTime DateOfExpiration { get; set; }
->>>>>>> feature/DatabaseModels:SiemensWebAPI/SiemensWebAPI/Models/Supply.cs
-    
         public virtual Warehouse Warehouse { get; set; }
     }
 }

@@ -18,17 +18,15 @@ namespace SiemensWebAPI.Controllers
             {
                 try
                 {
-                    var entryPoint = (from warehouse in dbctx.WarehouseStorages
-                                      join fs in dbctx.Feedstocks on warehouse.ID_feedstock equals fs.ID
-                                      join rs in dbctx.Ressuplies on new { warehouse.ID_warehouse, warehouse.ID_compartment } equals new { rs.ID_warehouse, rs.ID_compartment }
+                    var entryPoint = (from warehouse in dbctx.Warehouses
+                                      join supply in dbctx.Supplies on warehouse.ID_compartment equals supply.ID_compartment
+                                      join feedstock in dbctx.Feedstocks on warehouse.ID_feedstock equals feedstock.ID
                                       select new
                                       {
-                                          warehouse.ID_warehouse,
-                                          warehouse.ID_compartment,
-                                          warehouse.Quantity_Held,
-                                          fs.Name,
-                                          rs.DateOfRessuply,
-                                          rs.Quantity_Bought
+                                          ID_wh = warehouse.ID_warehouse,
+                                          ID_cmp = warehouse.ID_compartment,
+                                          FS_name = feedstock.Name,
+                                          SupplyString = supply.ID_supply
                                       }).ToList();
                     return Ok(entryPoint);
                 }

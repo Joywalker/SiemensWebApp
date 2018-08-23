@@ -24,11 +24,7 @@ namespace SiemensWebAPI.Models
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
         public string Quantity_Held { get; set; }
-<<<<<<< HEAD:SiemensWebAPI/SiemensWebAPI/Models/WarehouseStorage.cs
-=======
-        public string ID_supply { get; set; }
->>>>>>> feature/DatabaseModels:SiemensWebAPI/SiemensWebAPI/Models/Warehouse.cs
-    
+        public string ID_supply { get; set; }    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supply> Supplies { get; set; }
     }
