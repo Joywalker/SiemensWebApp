@@ -194,11 +194,15 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ressuply.cs">
+    <Compile Include="Models\Supply.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WarehouseStorage.cs">
+=======
+    <Compile Include="Models\Warehouse.cs">
+>>>>>>> feature/DatabaseModels
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

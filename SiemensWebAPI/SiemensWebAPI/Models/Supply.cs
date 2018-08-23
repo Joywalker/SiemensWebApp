@@ -12,15 +12,20 @@ namespace SiemensWebAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ressuply
+    public partial class Supply
     {
-        public int ID_warehouse { get; set; }
+        public int ID_supply { get; set; }
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
         public System.DateTime DateOfRessuply { get; set; }
+<<<<<<< HEAD:SiemensWebAPI/SiemensWebAPI/Models/Ressuply.cs
         public Nullable<System.DateTime> DateOfExpiration { get; set; }
         public string Quantity_Bought { get; set; }
+=======
+        public string Quantity { get; set; }
+        public System.DateTime DateOfExpiration { get; set; }
+>>>>>>> feature/DatabaseModels:SiemensWebAPI/SiemensWebAPI/Models/Supply.cs
     
-        public virtual WarehouseStorage WarehouseStorage { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

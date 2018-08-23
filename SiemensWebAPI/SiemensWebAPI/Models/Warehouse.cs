@@ -12,13 +12,24 @@ namespace SiemensWebAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class WarehouseStorage
+    public partial class Warehouse
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Warehouse()
+        {
+            this.Supplies = new HashSet<Supply>();
+        }
+    
         public int ID_warehouse { get; set; }
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
         public string Quantity_Held { get; set; }
+<<<<<<< HEAD:SiemensWebAPI/SiemensWebAPI/Models/WarehouseStorage.cs
+=======
+        public string ID_supply { get; set; }
+>>>>>>> feature/DatabaseModels:SiemensWebAPI/SiemensWebAPI/Models/Warehouse.cs
     
-        public virtual Ressuply Ressuply { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Supply> Supplies { get; set; }
     }
 }

@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bea8cf6c2b0a42d3b101cf1cf44e72c2" Name="Diagram1" ZoomLevel="62">
-        <EntityTypeShape EntityType="DbContext.Feedstock" Width="1.5" PointX="3.125" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.Product" Width="1.5" PointX="2.25" PointY="0.5" IsExpanded="true" />
+      <Diagram DiagramId="bea8cf6c2b0a42d3b101cf1cf44e72c2" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="DbContext.Feedstock" Width="1.5" PointX="5.625" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbContext.Product" Width="1.5" PointX="2.875" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DbContext.UserAccount" Width="1.5" PointX="0.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.Ressuply" Width="1.5" PointX="10" PointY="0.75" />
-        <EntityTypeShape EntityType="DbContext.WarehouseStorage" Width="1.5" PointX="7.125" PointY="0.5" />
-        <AssociationConnector Association="DbContext.FK_Ressuply_WarehouseStorage" />
+        <EntityTypeShape EntityType="DbContext.Supply" Width="1.5" PointX="12.5" PointY="4.125" />
+        <EntityTypeShape EntityType="DbContext.Warehouse" Width="1.5" PointX="8.75" PointY="2.125" />
+        <AssociationConnector Association="DbContext.FK_Supply_Warehouse" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
