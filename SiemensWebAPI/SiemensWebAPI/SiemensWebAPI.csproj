@@ -197,6 +197,7 @@
     <Compile Include="Models\Supply.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\Warehouse.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
