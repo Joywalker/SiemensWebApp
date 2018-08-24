@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SiemensWebAPI.Models
+namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAccount
+    public partial class Supply
     {
-        public int ID { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string CNP { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Employee_ID { get; set; }
-        public string UserRole { get; set; }
+        public int ID_supply { get; set; }
+        public int ID_compartment { get; set; }
+        public int ID_feedstock { get; set; }
+        public System.DateTime DateOfRessuply { get; set; }
+        public string Quantity { get; set; }
+        public System.DateTime DateOfExpiration { get; set; }
+    
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

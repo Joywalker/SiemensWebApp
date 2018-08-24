@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SiemensWebAPI.Models
+namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Data.Entity;

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SiemensWebAPI.Models
+namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +24,8 @@ namespace SiemensWebAPI.Models
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
         public string Quantity_Held { get; set; }
-        public string ID_supply { get; set; }    
+        public string ID_supply { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supply> Supplies { get; set; }
     }
