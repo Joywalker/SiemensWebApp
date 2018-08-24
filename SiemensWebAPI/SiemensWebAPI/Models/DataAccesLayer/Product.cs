@@ -7,15 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SiemensWebAPI.Models
+namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Feedstock
+    public partial class Product
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public int BagSize { get; set; }
     }
 }

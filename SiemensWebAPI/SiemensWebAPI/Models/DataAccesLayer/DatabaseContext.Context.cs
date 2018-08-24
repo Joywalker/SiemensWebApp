@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SiemensWebAPI.Models
+namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Data.Entity;
@@ -28,7 +28,7 @@ namespace SiemensWebAPI.Models
         public virtual DbSet<Feedstock> Feedstocks { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
-        public virtual DbSet<Ressuply> Ressuplies { get; set; }
-        public virtual DbSet<WarehouseStorage> WarehouseStorages { get; set; }
+        public virtual DbSet<Supply> Supplies { get; set; }
+        public virtual DbSet<Warehouse> Warehouses { get; set; }
     }
 }

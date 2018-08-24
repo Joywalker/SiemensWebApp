@@ -7,20 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SiemensWebAPI.Models
+namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Ressuply
+
+    public partial class Supply
     {
-        public int ID_warehouse { get; set; }
+        public int ID_supply { get; set; }
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
         public System.DateTime DateOfRessuply { get; set; }
         public string Quantity { get; set; }
-        public Nullable<System.DateTime> DateOfExpiration { get; set; }
+        public System.DateTime DateOfExpiration { get; set; }
     
-        public virtual WarehouseStorage WarehouseStorage { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http.Cors;
 using System.Web.Http;
+using SiemensWebAPI.Models.DataAccesLayer;
 using SiemensWebAPI.Models;
 
 namespace SiemensWebAPI.Controllers
@@ -34,7 +35,26 @@ namespace SiemensWebAPI.Controllers
             }
             catch (Exception ex)
             {
-                // treat ex
+                Console.WriteLine("Exception in AccountController/api/User/Login", ex.ToString());
+            }
+            return Ok();
+        }
+
+        [Route("api/User/GetAll")]
+        [HttpGet]
+        public IHttpActionResult GetAllUsers()
+        {
+            try
+            {
+                using (DatabaseContext dbctx = new DatabaseContext())
+                {
+                    var allUsers = dbctx.UserAccounts.ToList();
+                    return Ok(allUsers);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in AccountController/GetAll", ex.ToString());
             }
             return Ok();
         }

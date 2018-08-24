@@ -169,49 +169,52 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Models\DatabaseContext.Context.cs">
+    <Compile Include="Controllers\StorageManagementController.cs" />
+    <Compile Include="Helpers\ClassValidatorHelper.cs" />
+    <Compile Include="Models\DataAccesLayer\DatabaseContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DatabaseContext.cs">
+    <Compile Include="Models\DataAccesLayer\DatabaseContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DatabaseContext.Designer.cs">
+    <Compile Include="Models\DataAccesLayer\DatabaseContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseContext.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Feedstock.cs">
+    <Compile Include="Models\DataAccesLayer\Feedstock.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs">
+    <Compile Include="Models\DataAccesLayer\Product.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ressuply.cs">
+    <Compile Include="Models\DomainViewModels\StorageViewModel.cs" />
+    <Compile Include="Models\DataAccesLayer\Supply.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserViewModel.cs" />
-    <Compile Include="Models\WarehouseStorage.cs">
+    <Compile Include="Models\DomainViewModels\UserViewModel.cs" />
+    <Compile Include="Models\DataAccesLayer\Warehouse.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\UserAccount.cs">
+    <Compile Include="Models\DataAccesLayer\UserAccount.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\DatabaseContext.Context.tt">
+    <Content Include="Models\DataAccesLayer\DatabaseContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseContext.edmx</DependentUpon>
       <LastGenOutput>DatabaseContext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DatabaseContext.tt">
+    <Content Include="Models\DataAccesLayer\DatabaseContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseContext.edmx</DependentUpon>
       <LastGenOutput>DatabaseContext.cs</LastGenOutput>
@@ -233,11 +236,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\DatabaseContext.edmx">
+    <EntityDeploy Include="Models\DataAccesLayer\DatabaseContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DatabaseContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DatabaseContext.edmx.diagram">
+    <Content Include="Models\DataAccesLayer\DatabaseContext.edmx.diagram">
       <DependentUpon>DatabaseContext.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
