@@ -6,11 +6,38 @@ using System.Net.Http;
 using System.Web.Http;
 using SiemensWebAPI.Models.DataAccesLayer;
 using SiemensWebAPI.Models;
+using SiemensWebAPI.Helpers;
 
 namespace SiemensWebAPI.Controllers
 {
     public class StorageManagementController : ApiController
     {
+
+        [Route("api/Storage/Ressuply")]
+        [HttpPost]
+        public IHttpActionResult doRessuply(Supply newSupply)
+        {
+            try
+            {
+                using(DatabaseContext dbctx = new DatabaseContext())
+                {
+                    // Verify if the newSupply object doesn't have null fields, thus it can be inserted into the database.
+                    if (!ClassValidatorHelper.IsAnyNullOrEmpty(newSupply))
+                    {
+                        dbctx.Supplies.Add(newSupply);
+                        return Ok(newSupply);
+                    }
+                }
+
+
+            } catch(InvalidOperationException ex)
+            {
+                Console.WriteLine("Exception in StorageManagementController/api/Storage/Ressuply", ex.ToString());
+            }
+            return Ok(); 
+        }
+
+
         [Route("api/Storage")]
         [HttpGet]
         public IHttpActionResult getStorageStatus()
@@ -19,6 +46,7 @@ namespace SiemensWebAPI.Controllers
             {
                 try
                 {
+                    //Get records as a list of view model objects.
                     List<StorageViewModel> storageEntriesList = (from warehouse in dbctx.Warehouses
                                                          join supply in dbctx.Supplies on warehouse.ID_compartment equals supply.ID_compartment
                                                          join feedstock in dbctx.Feedstocks on warehouse.ID_feedstock equals feedstock.ID
@@ -50,7 +78,7 @@ namespace SiemensWebAPI.Controllers
                 }
                 catch (InvalidOperationException e)
                 {
-                    Console.WriteLine(e.ToString());
+                    Console.WriteLine("Exception in StorageManagementControllere/api/Storage", e.ToString());
                     return NotFound();
                 }
             }
