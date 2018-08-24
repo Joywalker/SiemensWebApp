@@ -10,7 +10,7 @@ using SiemensWebAPI.Helpers;
 
 namespace SiemensWebAPI.Controllers
 {
-    public class StorageManagementController : ApiController
+    public class StorageManagementController : BaseController
     {
 
         [Route("api/Storage/Ressuply")]
