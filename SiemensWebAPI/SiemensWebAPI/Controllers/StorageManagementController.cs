@@ -18,17 +18,34 @@ namespace SiemensWebAPI.Controllers
             {
                 try
                 {
-                    var entryPoint = (from warehouse in dbctx.Warehouses
-                                      join supply in dbctx.Supplies on warehouse.ID_compartment equals supply.ID_compartment
-                                      join feedstock in dbctx.Feedstocks on warehouse.ID_feedstock equals feedstock.ID
-                                      select new
-                                      {
-                                          ID_wh = warehouse.ID_warehouse,
-                                          ID_cmp = warehouse.ID_compartment,
-                                          FS_name = feedstock.Name,
-                                          SupplyString = supply.ID_supply
-                                      }).ToList();
-                    return Ok(entryPoint);
+                    List<StorageViewModel> storageEntriesList = (from warehouse in dbctx.Warehouses
+                                                         join supply in dbctx.Supplies on warehouse.ID_compartment equals supply.ID_compartment
+                                                         join feedstock in dbctx.Feedstocks on warehouse.ID_feedstock equals feedstock.ID
+                                                         select new StorageViewModel
+                                                         {
+                                                             ID_warehouse = warehouse.ID_warehouse,
+                                                             ID_compartment = warehouse.ID_compartment,
+                                                             feedstockName = feedstock.Name,
+                                                             quantityStored = warehouse.Quantity_Held,
+                                                             newestDateOfSupply = dbctx.Supplies.Where(sp => sp.ID_feedstock == warehouse.ID_feedstock)
+                                                                                                .Where(sp => sp.ID_compartment == warehouse.ID_compartment)
+                                                                                                .OrderByDescending(date => date.DateOfRessuply)
+                                                                                                .Select(date => date.DateOfRessuply)
+                                                                                                .FirstOrDefault(),
+                                                             oldestDateOfSupply = dbctx.Supplies.Where(sp => sp.ID_feedstock == warehouse.ID_feedstock)
+                                                                                                .Where(sp => sp.ID_compartment == warehouse.ID_compartment)
+                                                                                                .OrderBy(date => date.DateOfRessuply)
+                                                                                                .Select(date => date.DateOfRessuply)
+                                                                                                .FirstOrDefault(),
+                                                             quantityFromTheOldestDate = dbctx.Supplies.Where(sp => sp.ID_feedstock == warehouse.ID_feedstock)
+                                                                                                .Where(sp => sp.ID_compartment == warehouse.ID_compartment)
+                                                                                                .OrderBy(date => date.DateOfRessuply)
+                                                                                                .Select(qtt => qtt.Quantity)
+                                                                                                .FirstOrDefault(),
+
+                                                         }).Distinct().ToList();
+                    
+                    return Ok(storageEntriesList);
                 }
                 catch (InvalidOperationException e)
                 {
