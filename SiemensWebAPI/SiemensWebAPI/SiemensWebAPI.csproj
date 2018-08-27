@@ -171,6 +171,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\StorageManagementController.cs" />
     <Compile Include="Helpers\ClassValidatorHelper.cs" />
+    <Compile Include="Helpers\StorageDataManagerHelper.cs" />
     <Compile Include="Models\DataAccesLayer\DatabaseContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

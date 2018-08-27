@@ -9,11 +9,11 @@ namespace SiemensWebAPI.Models
     {
         public int ID_warehouse { get; set;}
         public int ID_compartment { get; set;}
-        public String feedstockName { get; set; }
-        public String quantityStored { get; set; }
-        public DateTime newestDateOfSupply { get; set; }
-        public DateTime oldestDateOfSupply { get; set; }
-        public String quantityFromTheOldestDate { get; set; }
+        public String FeedstockName { get; set; }
+        public String QuantityStored { get; set; }
+        public DateTime? NewestDateOfSupply { get; set; }
+        public DateTime? OldestDateOfSupply { get; set; }
+        public String QuantityFromTheOldestDate { get; set; }
     }
 
     public partial class StorageViewModel
