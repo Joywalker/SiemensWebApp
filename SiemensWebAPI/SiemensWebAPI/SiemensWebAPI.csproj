@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\RecipeManagementController.cs" />
     <Compile Include="Controllers\StorageManagementController.cs" />
     <Compile Include="Helpers\ClassValidatorHelper.cs" />
     <Compile Include="Helpers\StorageDataManagerHelper.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Models\DataAccesLayer\Product.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DomainViewModels\RecipeViewModel.cs" />
     <Compile Include="Models\DomainViewModels\StorageViewModel.cs" />
     <Compile Include="Models\DataAccesLayer\Supply.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>

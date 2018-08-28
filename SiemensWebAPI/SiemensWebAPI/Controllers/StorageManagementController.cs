@@ -16,7 +16,7 @@ namespace SiemensWebAPI.Controllers
 
         [Route("api/Storage/Ressuply")]
         [HttpPost]
-        public IHttpActionResult doRessuply(Supply newSupply)
+        public IHttpActionResult oRessuply(Supply newSupply)
         {
             try
             {
@@ -74,6 +74,7 @@ namespace SiemensWebAPI.Controllers
                                                                                                         .FirstOrDefault(),
 
                                                                  }).Distinct().ToList();
+
                     // transform from list to dictionary with the deposit_ID as key
                     var tempDictionary = StorageDataManagerHelper.transformFromListToDictionary(storageEntriesList);
                     return Ok(tempDictionary);
