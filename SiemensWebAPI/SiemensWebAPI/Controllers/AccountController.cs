@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
-using SiemensWebAPI.Models.DataAccesLayer;
 using SiemensWebAPI.Models;
+using SiemensWebAPI.Models.DataAccesLayer;
 
 namespace SiemensWebAPI.Controllers
 {

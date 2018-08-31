@@ -30,7 +30,7 @@
           <Property Name="ID_feedstock" Type="int" Nullable="false" />
           <Property Name="DateOfRessuply" Type="date" Nullable="false" />
           <Property Name="Quantity" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="DateOfExpiration" Type="datetime" Nullable="false" />
+          <Property Name="DateOfExpiration" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="UserAccounts">
           <Key>
@@ -52,7 +52,7 @@
           <Property Name="ID_warehouse" Type="int" Nullable="false" />
           <Property Name="ID_compartment" Type="int" Nullable="false" />
           <Property Name="ID_feedstock" Type="int" Nullable="false" />
-          <Property Name="Quantity_Held" Type="nvarchar" MaxLength="10" />
+          <Property Name="Quantity_Held" Type="int" />
           <Property Name="ID_supply" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_Supply_Warehouse">
@@ -131,7 +131,7 @@
           <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
           <Property Name="DateOfRessuply" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Quantity" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfExpiration" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateOfExpiration" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Warehouse" Relationship="DbContext.FK_Supply_Warehouse" FromRole="Supply" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="Warehouse">
@@ -141,7 +141,7 @@
           <Property Name="ID_warehouse" Type="Int32" Nullable="false" />
           <Property Name="ID_compartment" Type="Int32" Nullable="false" />
           <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
-          <Property Name="Quantity_Held" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity_Held" Type="Int32" />
           <Property Name="ID_supply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Supplies" Relationship="DbContext.FK_Supply_Warehouse" FromRole="Warehouse" ToRole="Supply" />
         </EntityType>
