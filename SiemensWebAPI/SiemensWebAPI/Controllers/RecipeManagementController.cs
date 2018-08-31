@@ -11,15 +11,42 @@ using SiemensWebAPI.Helpers;
 
 namespace SiemensWebAPI.Controllers
 {
-    public class RecipeManagementController: BaseController
+    public class RecipeManagementController : BaseController
     {
         [HttpPost]
         [Route("recipe/add")]
-        public void AddNewRecipe(RecipeViewModel recipe)
+        public IHttpActionResult AddNewRecipe(RecipeViewModel recipe)
         {
-            var recipeToStringBuffer = RecipeManagementHelper.ParseObjectToStringForMSMQ(recipe);
-            RecipeManagementHelper.SaveRecipeAsJsonToFile(recipe);
+            try
+            {
+                var recipeToStringBuffer = RecipeManagementHelper.ParseObjectToStringForMSMQ(recipe);
+                var response = RecipeManagementHelper.WasAbleToSaveRecipeAsJsonToFile(recipe);
+                if (response)
+                {
+                    return Ok(response);
+                }
+            } catch (Exception e)
+            {
+                return Ok(e);
+            }
+            return NotFound();
         }
 
+        [HttpGet]
+        [Route("recipe/get")]
+        public IHttpActionResult GetAllRecipes()
+       {
+            try
+            {
+                var recipesList = RecipeManagementHelper.GetAllRecipes();
+                return Ok(recipesList);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception at RecipeManagementController", e.ToString());
+                return NotFound();
+            }
+        }
     }
 }
