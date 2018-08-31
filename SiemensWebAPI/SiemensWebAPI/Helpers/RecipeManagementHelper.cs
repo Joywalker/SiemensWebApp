@@ -57,5 +57,12 @@ namespace SiemensWebAPI.Helpers
                 Console.WriteLine("Exception at RecipeManagementHelper ", ex.ToString());
             }
         }
+        public static string[] ReadFromAFile(String FileName)
+        {
+          
+            string filename = "C:/Users/ioana.ciangau/Desktop/" + FileName + ".txt";
+            string[] lines = System.IO.File.ReadAllLines(filename);
+            return lines;
+        }
     }
 }

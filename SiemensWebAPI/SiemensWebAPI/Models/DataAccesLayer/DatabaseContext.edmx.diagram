@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="DbContext.Supply" Width="1.5" PointX="12.5" PointY="4.125" />
         <EntityTypeShape EntityType="DbContext.Warehouse" Width="1.5" PointX="8.75" PointY="2.125" />
         <AssociationConnector Association="DbContext.FK_Supply_Warehouse" />
+        <EntityTypeShape EntityType="DbContext.Order" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

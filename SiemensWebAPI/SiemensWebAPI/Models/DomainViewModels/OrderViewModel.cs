@@ -7,7 +7,9 @@ namespace SiemensWebAPI.Models.DomainViewModels
 {
     public class OrderViewModel
     {
-        public int Quantity { get; set; } // cate pungi de chipsuri se vor crea
-        public int BagQuantity { get; set; }  // cate g are punga de chipsuri
+        public string Recipe { get; set; } // reteta dorita 
+        public int BagSize { get; set; } // cate pungi de chipsuri se vor crea
+        public int Amount { get; set; }
+        
     }
 }

@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\OrdersManagementController.cs" />
     <Compile Include="Controllers\RecipeManagementController.cs" />
     <Compile Include="Controllers\StorageManagementController.cs" />
     <Compile Include="Helpers\ClassValidatorHelper.cs" />
@@ -194,6 +195,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAccesLayer\Order.cs">
+      <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\Product.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
