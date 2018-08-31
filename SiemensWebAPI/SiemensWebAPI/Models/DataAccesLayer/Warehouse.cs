@@ -23,7 +23,7 @@ namespace SiemensWebAPI.Models.DataAccesLayer
         public int ID_warehouse { get; set; }
         public int ID_compartment { get; set; }
         public int ID_feedstock { get; set; }
-        public string Quantity_Held { get; set; }
+        public Nullable<int> Quantity_Held { get; set; }
         public string ID_supply { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

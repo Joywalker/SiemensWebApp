@@ -196,10 +196,12 @@
     <Compile Include="Models\DataAccesLayer\Product.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DomainViewModels\OrderViewModel.cs" />
     <Compile Include="Models\DomainViewModels\StorageViewModel.cs" />
     <Compile Include="Models\DataAccesLayer\Supply.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DomainViewModels\UpdateViewModel.cs" />
     <Compile Include="Models\DomainViewModels\UserViewModel.cs" />
     <Compile Include="Models\DataAccesLayer\Warehouse.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
@@ -263,7 +265,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50161</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
