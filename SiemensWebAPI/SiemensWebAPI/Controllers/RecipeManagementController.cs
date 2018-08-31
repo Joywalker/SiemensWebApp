@@ -7,6 +7,7 @@ using System.Web.Http;
 using SiemensWebAPI.Models.DataAccesLayer;
 using SiemensWebAPI.Models;
 using SiemensWebAPI.Models.DomainViewModels;
+using SiemensWebAPI.Helpers;
 
 namespace SiemensWebAPI.Controllers
 {
@@ -14,10 +15,11 @@ namespace SiemensWebAPI.Controllers
     {
         [HttpPost]
         [Route("recipe/add")]
-        public IHttpActionResult AddNewRecipe(RecipeViewModel recipe)
+        public void AddNewRecipe(RecipeViewModel recipe)
         {
-
-            return Ok(recipe);
+            var recipeToStringBuffer = RecipeManagementHelper.ParseObjectToStringForMSMQ(recipe);
+            RecipeManagementHelper.SaveRecipeAsJsonToFile(recipe);
         }
+
     }
 }
