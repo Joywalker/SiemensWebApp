@@ -6,14 +6,18 @@ using System.Web;
 using System.Text;
 using Newtonsoft.Json;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace SiemensWebAPI.Helpers
 {
     public class RecipeManagementHelper
     {
-        private static int RecipeIndex = 1;
-        private static StringBuilder RecipeSB = new StringBuilder(RecipeIndex.ToString());
-        private static String StoredRecipesFilePath = "C:/Users/alexandru.razvant/Desktop/SiemensWebApp/SiemensWebAPI/SiemensWebAPI/RecipeList.rtf";
+        private static String FILEEXTENSION = ".txt";
+        private static String PROJECT_BASE_PATH = AppDomain.CurrentDomain.BaseDirectory;
+        private static String RECIPES_FOLDER_NAME = "/Recipes/";
+        private static String RECIPES_FOLDER_PATH = PROJECT_BASE_PATH + RECIPES_FOLDER_NAME;
+
         public static StringBuilder ParseObjectToStringForMSMQ(RecipeViewModel recipe)
         {
             try
@@ -40,22 +44,44 @@ namespace SiemensWebAPI.Helpers
         }
         private static String TransformObjectToJsonString(RecipeViewModel recipe)
         {
-            String jsonString = JsonConvert.SerializeObject(recipe, Formatting.Indented);
-            String recipeWithIDString = "{" + "\"" + RecipeIndex++.ToString() + "\" " + ":";
-            return recipeWithIDString + jsonString;
+            String jsonString = JsonConvert.SerializeObject(recipe, Newtonsoft.Json.Formatting.Indented);
+            return jsonString;
 
         }
-        public static void SaveRecipeAsJsonToFile(RecipeViewModel recipe)
+        public static bool WasAbleToSaveRecipeAsJsonToFile(RecipeViewModel recipe)
         {
             try
             {
-                var recipeAsJson = RecipeManagementHelper.TransformObjectToJsonString(recipe);
-                File.AppendAllText(StoredRecipesFilePath, recipeAsJson);
+                var recipeAsJson = TransformObjectToJsonString(recipe);
+                var whereToWrite = RECIPES_FOLDER_PATH + recipe.RecipeName + FILEEXTENSION;
+                File.WriteAllText(whereToWrite, recipeAsJson);
+                return true;
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Console.WriteLine("Exception at RecipeManagementHelper ", ex.ToString());
+                return false;
             }
+        }
+        private static RecipeViewModel TransformToRecipeFromFile(String fileName)
+        {
+            using (StreamReader sr = new StreamReader(fileName))
+            {
+                string json = sr.ReadToEnd();
+                RecipeViewModel recipe = JsonConvert.DeserializeObject<RecipeViewModel>(json);
+                return recipe;
+            }
+        }
+        public static List<RecipeViewModel> GetAllRecipes()
+        {
+            List<RecipeViewModel> recipesList = new List<RecipeViewModel>();
+            string[] fileEntries = Directory.GetFiles(RECIPES_FOLDER_PATH);
+            foreach (string fileName in fileEntries)
+            {
+                var recipe = TransformToRecipeFromFile(fileName);
+                recipesList.Add(recipe);
+            }
+            return recipesList;
         }
     }
 }
