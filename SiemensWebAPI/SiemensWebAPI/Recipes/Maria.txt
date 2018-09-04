@@ -2,16 +2,26 @@
   "Ingredients": [
     {
       "IngredientName": "Potatoes",
-      "Quantity": 11,
+      "Quantity": 55,
+      "MeasurementUnit": "kg"
+    },
+    {
+      "IngredientName": "Cheese",
+      "Quantity": 1,
       "MeasurementUnit": "g"
     }
   ],
   "Actions": [
     {
+      "ActionName": "Mix",
+      "Duration": 2,
+      "TimeMeasurementUnit": "hours"
+    },
+    {
       "ActionName": "Cook",
       "Duration": 1,
-      "TimeMeasurementUnit": "days"
+      "TimeMeasurementUnit": "hours"
     }
   ],
-  "RecipeName": "John"
+  "RecipeName": "Maria"
 }
