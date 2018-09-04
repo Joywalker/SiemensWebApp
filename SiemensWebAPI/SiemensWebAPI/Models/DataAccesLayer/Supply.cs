@@ -11,7 +11,7 @@ namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Supply
     {
         public int ID_supply { get; set; }
@@ -22,6 +22,5 @@ namespace SiemensWebAPI.Models.DataAccesLayer
         public System.DateTime DateOfExpiration { get; set; }
     
         public virtual Warehouse Warehouse { get; set; }
-
     }
 }

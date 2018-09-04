@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SiemensWebAPI.Models;
+using System.Text.RegularExpressions;
+using SiemensWebAPI.Models.DataAccesLayer;
+
 namespace SiemensWebAPI.Helpers
 {
     public class StorageDataManagerHelper
@@ -23,10 +26,83 @@ namespace SiemensWebAPI.Helpers
                     myTempDictionary.Add(ID_warehouse, storageViewModels);
                 }
                 return myTempDictionary;
-            } catch(InvalidCastException e)
+            }
+            catch (InvalidCastException e)
             {
                 Console.WriteLine("Exception at StorageDataHelper", e.ToString());
                 return null; // Optimize
+            }
+        }
+        public static int[] SplitString(String s)
+        {
+            int[] numbers = new int[100];
+            numbers = s.Split('|').Select(Int32.Parse).ToArray();
+
+            return numbers;
+        }
+        public static bool CompartmentValidation(int compartment)
+        {
+            bool result = false;
+            try
+            {
+                using (DatabaseContext dbctx = new DatabaseContext())
+                {
+                    var compartments = dbctx.Warehouses.Select(column => column.ID_compartment).Distinct().ToList();
+                    foreach (var comp in compartments)
+                    {
+                        if (compartment == comp) result = true;
+                    }
+                }
+
+                return result;
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Exception in StorageManagementControllere/api/Ioana", e.ToString());
+                return false;
+            }
+        }
+        public static bool WarehouseValidation(int warehouse)
+        {
+            bool result = false;
+            try
+            {
+                using (DatabaseContext dbctx = new DatabaseContext())
+                {
+                    var warehouses = dbctx.Warehouses.Select(column => column.ID_warehouse).Distinct().ToList();
+                    foreach (var ware in warehouses)
+                    {
+                        if (warehouse == ware) result = true;
+                    }
+                }
+                return result;
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Exception in StorageManagementControllere/api/Ioana", e.ToString());
+                return false;
+            }
+        }
+        public static bool MaterialValidation(int ID_material)
+        {
+            bool result = false;
+            try
+            {
+                using (DatabaseContext dbctx = new DatabaseContext())
+                {
+                    var ID_materials = dbctx.Feedstocks.Select(column => column.ID).Distinct().ToList();
+                    foreach (var id in ID_materials)
+                    {
+                        if (ID_material == id) result = true;
+                    }
+                }
+
+                return result;
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Exception in StorageManagementControllere/api/Ioana", e.ToString());
+                return false;
             }
         }
     }
