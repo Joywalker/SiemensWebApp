@@ -84,12 +84,30 @@ namespace SiemensWebAPI.Helpers
            
             return recipesList;
         }
-        public static string[] ReadFromAFile(String FileName)
+
+        public static bool WasAbleToDeleteRecipeWithName(String recipeName)
         {
-          
-            string filename = "C:/Users/ioana.ciangau/Desktop/" + FileName + ".txt";
-            string[] lines = System.IO.File.ReadAllLines(filename);
-            return lines;
+            try
+            {
+                string[] fileEntries = Directory.GetFiles(RECIPES_FOLDER_PATH);
+                foreach (string filePath in fileEntries)
+                {
+                    var filename = Path.GetFileNameWithoutExtension(filePath);
+                    if (filename.Equals(recipeName))
+                    {
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("Exception at RecipeManagementHelper", e.ToString());
+            }
+            return false;
         }
     }
 }

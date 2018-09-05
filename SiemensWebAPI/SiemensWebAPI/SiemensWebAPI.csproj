@@ -173,10 +173,10 @@
     <Compile Include="Controllers\RecipeManagementController.cs" />
     <Compile Include="Controllers\StorageManagementController.cs" />
     <Compile Include="Helpers\ClassValidatorHelper.cs" />
-    <Compile Include="Helpers\LoggerHelper.cs" />
     <Compile Include="Helpers\OrdersManagementHelper.cs" />
     <Compile Include="Helpers\RecipeManagementHelper.cs" />
     <Compile Include="Helpers\StorageDataManagerHelper.cs" />
+    <Compile Include="Helpers\UserManagementHelper.cs" />
     <Compile Include="Models\DataAccesLayer\DatabaseContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -211,6 +211,7 @@
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DomainViewModels\UpdateViewModel.cs" />
+    <Compile Include="Models\DomainViewModels\UserConfirmationFormViewModel.cs" />
     <Compile Include="Models\DomainViewModels\UserViewModel.cs" />
     <Compile Include="Models\DataAccesLayer\Warehouse.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
