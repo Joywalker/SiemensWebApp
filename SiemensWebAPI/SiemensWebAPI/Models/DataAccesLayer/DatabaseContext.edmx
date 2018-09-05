@@ -19,7 +19,6 @@
           </Key>
           <Property Name="ID_order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Recipe" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="BagSize" Type="int" Nullable="false" />
           <Property Name="Amount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
@@ -76,6 +75,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Warehouse_Feedstock">
+          <End Role="Feedstock" Type="Self.Feedstock" Multiplicity="1" />
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feedstock">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Warehouse">
+              <PropertyRef Name="ID_feedstock" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DbContextStoreContainer">
           <EntitySet Name="Feedstock" EntityType="Self.Feedstock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -86,6 +97,10 @@
           <AssociationSet Name="FK_Supply_Warehouse" Association="Self.FK_Supply_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Supply" EntitySet="Supply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Feedstock" Association="Self.FK_Warehouse_Feedstock">
+            <End Role="Feedstock" EntitySet="Feedstock" />
+            <End Role="Warehouse" EntitySet="Warehouse" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -99,6 +114,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Warehouses" Relationship="DbContext.FK_Warehouse_Feedstock" FromRole="Feedstock" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -131,6 +147,10 @@
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Supply" EntitySet="Supplies" />
           </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Feedstock" Association="DbContext.FK_Warehouse_Feedstock">
+            <End Role="Feedstock" EntitySet="Feedstocks" />
+            <End Role="Warehouse" EntitySet="Warehouses" />
+          </AssociationSet>
           <EntitySet Name="Orders" EntityType="DbContext.Order" />
         </EntityContainer>
         <EntityType Name="Supply">
@@ -155,6 +175,7 @@
           <Property Name="Quantity_Held" Type="Int32" />
           <Property Name="ID_supply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Supplies" Relationship="DbContext.FK_Supply_Warehouse" FromRole="Warehouse" ToRole="Supply" />
+          <NavigationProperty Name="Feedstock" Relationship="DbContext.FK_Warehouse_Feedstock" FromRole="Warehouse" ToRole="Feedstock" />
         </EntityType>
         <Association Name="FK_Supply_Warehouse">
           <End Type="DbContext.Warehouse" Role="Warehouse" Multiplicity="1" />
@@ -168,13 +189,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Warehouse_Feedstock">
+          <End Type="DbContext.Feedstock" Role="Feedstock" Multiplicity="1" />
+          <End Type="DbContext.Warehouse" Role="Warehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feedstock">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Warehouse">
+              <PropertyRef Name="ID_feedstock" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID_order" />
           </Key>
           <Property Name="ID_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Recipe" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BagSize" Type="Int32" Nullable="false" />
           <Property Name="Amount" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
@@ -242,7 +274,6 @@
             <EntityTypeMapping TypeName="DbContext.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="BagSize" ColumnName="BagSize" />
                 <ScalarProperty Name="Recipe" ColumnName="Recipe" />
                 <ScalarProperty Name="ID_order" ColumnName="ID_order" />
               </MappingFragment>

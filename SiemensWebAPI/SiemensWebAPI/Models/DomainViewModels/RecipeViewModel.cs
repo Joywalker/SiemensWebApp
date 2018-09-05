@@ -24,9 +24,11 @@ namespace SiemensWebAPI.Models.DomainViewModels
         public String RecipeName { get; set; }
         public Ingredient[] Ingredients;
         public RecipeAction[] Actions;
+        
 
         public RecipeViewModel(String name, Ingredient[] ingr, RecipeAction[] act)
         {
+            
             this.RecipeName = name;
             this.Ingredients = ingr;
             this.Actions = act;

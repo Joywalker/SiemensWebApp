@@ -1,0 +1,32 @@
+{
+  "Ingredients": [
+    {
+      "IngredientName": "Cartofi",
+      "Quantity": 2,
+      "MeasurementUnit": "kg"
+
+    },
+
+     {
+      "IngredientName": "Sare",
+      "Quantity": 1,
+      "MeasurementUnit": "kg"
+
+    },
+
+     {
+      "IngredientName": "Ulei",
+      "Quantity": 1,
+      "MeasurementUnit": "kg"
+
+    }
+  ],
+  "Actions": [
+    {
+      "ActionName": "Cook",
+      "Duration": 1,
+      "TimeMeasurementUnit": "days"
+    }
+  ],
+  "RecipeName": "Chipsuri cu sare 200"
+}

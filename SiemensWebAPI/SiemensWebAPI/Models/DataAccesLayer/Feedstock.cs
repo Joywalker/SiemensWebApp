@@ -14,8 +14,17 @@ namespace SiemensWebAPI.Models.DataAccesLayer
     
     public partial class Feedstock
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Feedstock()
+        {
+            this.Warehouses = new HashSet<Warehouse>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Warehouse> Warehouses { get; set; }
     }
 }

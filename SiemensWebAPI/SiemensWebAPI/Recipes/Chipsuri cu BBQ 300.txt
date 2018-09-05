@@ -1,8 +1,8 @@
 {
   "Ingredients": [
     {
-      "IngredientName": "Potatoes",
-      "Quantity": 11,
+      "IngredientName": "Cartofi",
+      "Quantity": 10,
       "MeasurementUnit": "g"
     }
   ],
@@ -13,5 +13,5 @@
       "TimeMeasurementUnit": "days"
     }
   ],
-  "RecipeName": "John"
+  "RecipeName": "Chipsuri cu BBQ 300"
 }

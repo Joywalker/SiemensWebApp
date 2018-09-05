@@ -158,7 +158,7 @@ namespace SiemensWebAPI.Controllers
             }
             catch (InvalidOperationException e)
             {
-                Console.WriteLine("Exception in StorageManagementControllere/api/Ioana", e.ToString());
+                Console.WriteLine("Exception in StorageManagementControllere/api/EditStorage", e.ToString());
                 return NotFound();
             }
         }
