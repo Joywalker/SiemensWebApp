@@ -11,8 +11,14 @@
         <EntityTypeShape EntityType="DbContext.Supply" Width="1.5" PointX="12.5" PointY="4.125" />
         <EntityTypeShape EntityType="DbContext.Warehouse" Width="1.5" PointX="7.875" PointY="2.875" />
         <AssociationConnector Association="DbContext.FK_Supply_Warehouse" />
+<<<<<<< Updated upstream
         <AssociationConnector Association="DbContext.FK_Warehouse_Feedstock" />
         <EntityTypeShape EntityType="DbContext.Order" Width="1.5" PointX="0.75" PointY="4.75" />
+=======
+        <EntityTypeShape EntityType="DbContext.ProductStock" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DbContext.Order" Width="1.5" PointX="5.375" PointY="0.75" />
+        <AssociationConnector Association="DbContext.FK_Warehouse_Feedstock" />
+>>>>>>> Stashed changes
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

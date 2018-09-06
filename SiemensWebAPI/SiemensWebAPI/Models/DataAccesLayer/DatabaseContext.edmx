@@ -29,6 +29,16 @@
           <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="BagSize" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProductStock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Recipe" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ManufactureDate" Type="date" />
+        </EntityType>
         <EntityType Name="Supply">
           <Key>
             <PropertyRef Name="ID_supply" />
@@ -91,6 +101,7 @@
           <EntitySet Name="Feedstock" EntityType="Self.Feedstock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStock" EntityType="Self.ProductStock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
@@ -147,6 +158,8 @@
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Supply" EntitySet="Supplies" />
           </AssociationSet>
+          <EntitySet Name="ProductStocks" EntityType="DbContext.ProductStock" />
+          <EntitySet Name="Orders" EntityType="DbContext.Order" />
           <AssociationSet Name="FK_Warehouse_Feedstock" Association="DbContext.FK_Warehouse_Feedstock">
             <End Role="Feedstock" EntitySet="Feedstocks" />
             <End Role="Warehouse" EntitySet="Warehouses" />
@@ -189,6 +202,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProductStock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="Recipe" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ManufactureDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID_order" />
+          </Key>
+          <Property Name="ID_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Recipe" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Warehouse_Feedstock">
           <End Type="DbContext.Feedstock" Role="Feedstock" Multiplicity="1" />
           <End Type="DbContext.Warehouse" Role="Warehouse" Multiplicity="*" />
@@ -267,6 +298,17 @@
                 <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
                 <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
                 <ScalarProperty Name="ID_warehouse" ColumnName="ID_warehouse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStocks">
+            <EntityTypeMapping TypeName="DbContext.ProductStock">
+              <MappingFragment StoreEntitySet="ProductStock">
+                <ScalarProperty Name="ManufactureDate" ColumnName="ManufactureDate" />
+                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
