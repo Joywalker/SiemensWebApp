@@ -134,6 +134,7 @@ namespace SiemensWebAPI.Controllers
                         {
                             dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).Quantity_Held += update.Quantity;
                             dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_SW && w.ID_compartment == update.ID_SC).Quantity_Held -= update.Quantity;
+                            LoggerHelper.UpdateWarehouse(update.ID_Material, update.ID_SW, update.ID_SC, update.ID_DW, update.ID_DC);
 
                             if (update.Quantity.ToString().Equals(LastSupplyQuantity))
                             {
@@ -145,12 +146,13 @@ namespace SiemensWebAPI.Controllers
                                 dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
                             }
                             dbctx.SaveChanges();
-                            return Ok("Ok!");
+                            return Ok("Ok");
                         }
 
                         else
                         {
-                            return Ok("The amount of material you want to send is higher than what is available in the source warehouse or the amount of material you want to send does not match that of the destination warehouse!");
+
+                            return Ok("Not ok!");
                         }
                     }
                 }

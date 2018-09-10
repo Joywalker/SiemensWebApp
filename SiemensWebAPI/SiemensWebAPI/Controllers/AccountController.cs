@@ -25,17 +25,16 @@ namespace SiemensWebAPI.Controllers
                     if (userRole != null || userRole != String.Empty)
                     {
                         var permissions = UserManagementHelper.GetPermissionsDictionaryFor(userRole);
+                        LoggerHelper.UserAction(usr.Username, "Autentificare cu succes ");
                         return Ok(permissions);
-                    }
-                    else
-                    {
-                        return NotFound();
                     }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in AccountController/api/User/Login", ex.ToString());
+                LoggerHelper.UserAction(usr.Username, "Autentificare esuata ");
+                return NotFound();
             }
             return Ok();
         }
@@ -72,19 +71,21 @@ namespace SiemensWebAPI.Controllers
         {
             try
             {
-                var values = (message.Content.ReadAsStringAsync().Result).Split('|');
+                var values = (message.Content.ReadAsStringAsync().Result).Split('|');               
                 String cnp = values[0];
                 String password = values[1];
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
                     dbctx.UserAccounts.Where(usr => usr.CNP.Equals(cnp)).FirstOrDefault().Password = password;
                     dbctx.SaveChanges();
+                    var username = dbctx.UserAccounts.Where(usr => usr.CNP.Equals(cnp)).FirstOrDefault().Username;
+                    LoggerHelper.UserAction(username, "Schimbarea de parola efectuata cu succes pentru ");
                     return Ok(true);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in AccountController/GetAll", ex.ToString());
+                Console.WriteLine("Exception in AccountController/GetAll", ex.ToString());              
             }
             return NotFound();
         }

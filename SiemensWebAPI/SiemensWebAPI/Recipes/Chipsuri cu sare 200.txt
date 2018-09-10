@@ -2,21 +2,21 @@
   "Ingredients": [
     {
       "IngredientName": "Cartofi",
-      "Quantity": 2,
+      "Quantity": 20,
       "MeasurementUnit": "kg"
 
     },
 
      {
       "IngredientName": "Sare",
-      "Quantity": 1,
+      "Quantity": 10,
       "MeasurementUnit": "kg"
 
     },
 
      {
       "IngredientName": "Ulei",
-      "Quantity": 1,
+      "Quantity": 10,
       "MeasurementUnit": "kg"
 
     }
