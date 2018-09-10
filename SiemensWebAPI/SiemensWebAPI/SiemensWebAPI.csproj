@@ -178,6 +178,9 @@
     <Compile Include="Helpers\RecipeManagementHelper.cs" />
     <Compile Include="Helpers\StorageDataManagerHelper.cs" />
     <Compile Include="Helpers\UserManagementHelper.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataAccesLayer\DatabaseContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -196,9 +199,6 @@
     <Compile Include="Models\DataAccesLayer\Feedstock.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Models\DataAccesLayer\Order.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
@@ -208,25 +208,30 @@
     <Compile Include="Models\DataAccesLayer\ProductStock.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataAccesLayer\Supply.cs">
+      <DependentUpon>DatabaseContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAccesLayer\UserAccount.cs">
+      <DependentUpon>DatabaseContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAccesLayer\Warehouse.cs">
+      <DependentUpon>DatabaseContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DomainViewModels\ProductStockViewModel.cs" />
     <Compile Include="Models\DomainViewModels\RecipeViewModel.cs" />
     <Compile Include="Models\DomainViewModels\OrderViewModel.cs" />
     <Compile Include="Models\DomainViewModels\StorageViewModel.cs" />
-    <Compile Include="Models\DataAccesLayer\Supply.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DomainViewModels\UpdateViewModel.cs" />
     <Compile Include="Models\DomainViewModels\UserConfirmationFormViewModel.cs" />
     <Compile Include="Models\DomainViewModels\UserViewModel.cs" />
-    <Compile Include="Models\DataAccesLayer\Warehouse.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\DataAccesLayer\UserAccount.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Models\DataAccesLayer\DatabaseContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseContext.edmx</DependentUpon>
@@ -236,11 +241,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseContext.edmx</DependentUpon>
       <LastGenOutput>DatabaseContext.cs</LastGenOutput>
-    </Content>
-    <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

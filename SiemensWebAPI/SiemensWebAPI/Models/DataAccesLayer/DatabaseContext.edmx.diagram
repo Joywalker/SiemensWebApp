@@ -4,21 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bea8cf6c2b0a42d3b101cf1cf44e72c2" Name="Diagram1" ZoomLevel="83">
-        <EntityTypeShape EntityType="DbContext.Feedstock" Width="1.5" PointX="5.625" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.Product" Width="1.5" PointX="2.875" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.UserAccount" Width="1.5" PointX="0.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbContext.Supply" Width="1.5" PointX="12.5" PointY="4.125" />
-        <EntityTypeShape EntityType="DbContext.Warehouse" Width="1.5" PointX="7.875" PointY="2.875" />
-        <AssociationConnector Association="DbContext.FK_Supply_Warehouse" />
-<<<<<<< Updated upstream
-        <AssociationConnector Association="DbContext.FK_Warehouse_Feedstock" />
-        <EntityTypeShape EntityType="DbContext.Order" Width="1.5" PointX="0.75" PointY="4.75" />
-=======
-        <EntityTypeShape EntityType="DbContext.ProductStock" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DbContext.Order" Width="1.5" PointX="5.375" PointY="0.75" />
-        <AssociationConnector Association="DbContext.FK_Warehouse_Feedstock" />
->>>>>>> Stashed changes
+      <Diagram DiagramId="1d402bd058394afeb3804222d6e36476" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="DatabaseModelModel.Feedstock" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.Order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.Product" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.ProductStock" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.Supply" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.UserAccount" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.Warehouse" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseModelModel.FK_Warehouse_Feedstock" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModelModel.FK_Supply_Warehouse" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

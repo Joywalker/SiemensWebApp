@@ -1,10 +1,7 @@
 ﻿using SiemensWebAPI.Models.DataAccesLayer;
-using SiemensWebAPI.Models.DomainViewModels;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 
 namespace SiemensWebAPI.Controllers
@@ -19,7 +16,7 @@ namespace SiemensWebAPI.Controllers
             {
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
-                    var allCurrentProducts = dbctx.ProductStocks.ToList();
+                    List<ProductStock> allCurrentProducts = dbctx.ProductStocks.ToList();
                     return Ok(allCurrentProducts);
                 }
             }
@@ -31,14 +28,20 @@ namespace SiemensWebAPI.Controllers
         }
 
         [Route("api/stock/lastMonthEv")]
-        [HttpGet]
-        public IHttpActionResult LastMonthEvolution(DateTime currentDate)
+        [HttpPost]
+        public IHttpActionResult LastMonthEvolution()
         {
             try
             {
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
-                    return Ok();
+                    DateTime currentDate = DateTime.Now;
+                    DateTime earliestDate = currentDate.AddDays(-30);
+                    List<ProductStock> products = dbctx.ProductStocks.Where(usr => usr.ManufactureDate <= currentDate && usr.ManufactureDate >= earliestDate).ToList();
+                    List<KeyValuePair<DateTime?, int?>> graph = new List<KeyValuePair<DateTime?, int?>>();
+                    graph = products.GroupBy(p => p.ManufactureDate)
+                                    .Select(p => new KeyValuePair<DateTime?, int?>(p.Key, p.Sum(prod => prod.Number))).ToList();
+                    return Ok(graph);
                 }
             }
             catch (Exception ex)
