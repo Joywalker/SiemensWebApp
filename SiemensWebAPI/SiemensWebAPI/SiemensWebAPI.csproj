@@ -173,6 +173,7 @@
     <Compile Include="Controllers\RecipeManagementController.cs" />
     <Compile Include="Controllers\StorageManagementController.cs" />
     <Compile Include="Helpers\ClassValidatorHelper.cs" />
+    <Compile Include="Helpers\LoggerHelper.cs" />
     <Compile Include="Helpers\OrdersManagementHelper.cs" />
     <Compile Include="Helpers\RecipeManagementHelper.cs" />
     <Compile Include="Helpers\StorageDataManagerHelper.cs" />

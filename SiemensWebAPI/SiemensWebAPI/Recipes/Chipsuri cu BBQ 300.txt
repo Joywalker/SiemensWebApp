@@ -2,8 +2,8 @@
   "Ingredients": [
     {
       "IngredientName": "Cartofi",
-      "Quantity": 10,
-      "MeasurementUnit": "g"
+      "Quantity": 1,
+      "MeasurementUnit": "kg"
     }
   ],
   "Actions": [

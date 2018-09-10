@@ -27,22 +27,32 @@ namespace SiemensWebAPI.Controllers
                     {
                         var Ingredients = recipe.Ingredients;
 
-                        if (OrdersManagementHelper.OrderValidation(Ingredients, order.Amount).ElementAt(0).Key.Equals("true"))
+
+                       if (OrdersManagementHelper.OrderValidation(Ingredients, order.Amount).ElementAt(0).Key.Equals("true"))
                         {
                             var NewIngredients = OrdersManagementHelper.ExtractIngredients(Ingredients, order.Amount);
                             RecipeViewModel NewRecipe = new RecipeViewModel(recipe.RecipeName, NewIngredients, recipe.Actions);
-                            OrdersManagementHelper.AddOrder(order);                          
+                            OrdersManagementHelper.AddOrder(order);
+                            var idOrder = dbctx.Orders.Where(ord => ord.Recipe.Equals(order.Recipe))
+                                                      .Where(ord => ord.Amount.Equals(order.Amount))
+                                                      .Select(column => column.ID_order)
+                                                      .ToList();                          
+                            LoggerHelper.Order(" a fost finalizata cu succes cu id-ul ", idOrder.LastOrDefault().ToString() + ". " + order.Amount + " de produse <" + order.Recipe + "> au fost create cu succes.");
                             return Ok("Comanda efectuata cu succes");
                         }
-                        else return Ok(OrdersManagementHelper.OrderValidation(Ingredients, order.Amount));
+                        else
+                        {
+                            LoggerHelper.Order(" a fost finalizata cu eroare.", "");
+                            return Ok(OrdersManagementHelper.OrderValidation(Ingredients, order.Amount));
+                        }
                     }
                     else return Ok("Nu exista reteta");
                 }
             }
             catch (InvalidOperationException e)
-            {
-                Console.WriteLine("Exception in OrdersManagementControllere/api/Order", e.ToString());
-                return NotFound();
+            {                
+                    Console.WriteLine("Exception in OrdersManagementControllere/api/Order", e.ToString());
+                    return NotFound();                
             }
         }
     }
