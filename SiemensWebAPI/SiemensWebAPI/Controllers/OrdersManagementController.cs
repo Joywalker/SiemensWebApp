@@ -37,7 +37,8 @@ namespace SiemensWebAPI.Controllers
                                                       .Where(ord => ord.Amount.Equals(order.Amount))
                                                       .Select(column => column.ID_order)
                                                       .ToList();                          
-                            LoggerHelper.Order(" a fost finalizata cu succes cu id-ul ", idOrder.LastOrDefault().ToString() + ". " + order.Amount + " de produse <" + order.Recipe + "> au fost create cu succes.");
+                            LoggerHelper.Order(" a fost finalizata cu succes cu id-ul ", idOrder.LastOrDefault().ToString() + ". " + order.Amount + " produse <" + order.Recipe + "> au fost create cu succes.");
+                            LoggerHelper.Products(order.Amount);
                             return Ok("Comanda efectuata cu succes");
                         }
                         else
