@@ -11,7 +11,7 @@ namespace SiemensWebAPI.Controllers
 {
     public class OrdersManagementController : BaseController
     {
-        [Route("api/Order")]
+        [Route("api/orders/add")]
         [HttpPost]
         public IHttpActionResult Order(OrderViewModel order)
         {
@@ -42,6 +42,30 @@ namespace SiemensWebAPI.Controllers
             catch (InvalidOperationException e)
             {
                 Console.WriteLine("Exception in OrdersManagementControllere/api/Order", e.ToString());
+                return NotFound();
+            }
+        }
+        [Route("api/orders/get")]
+        [HttpGet]
+        public IHttpActionResult GetAllOrders()
+        {
+            try
+            {
+                using (DatabaseContext dbctx = new DatabaseContext())
+                {
+                    var orders = dbctx.Orders.Select(order => order).ToList();
+                    if(orders != null)
+                    {
+                        return Ok(orders);
+                    } else
+                    {
+                        return NotFound();
+                    }
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Exception in OrdersManagementControllere/api/Orders/get", e.ToString());
                 return NotFound();
             }
         }
