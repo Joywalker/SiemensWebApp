@@ -1,4 +1,5 @@
 ﻿using SiemensWebAPI.Models.DataAccesLayer;
+using SiemensWebAPI.Models.DomainViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,13 @@ namespace SiemensWebAPI.Controllers
             {
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
-                    List<ProductStock> allCurrentProducts = dbctx.ProductStocks.ToList();
+                    List<ProductStockViewModel> allCurrentProducts = dbctx.ProductStocks.Select(entry => new ProductStockViewModel
+                    {
+                        Name = entry.Name,
+                        NumberOfBags = (int)entry.Number,
+                        Recipe = entry.Recipe,
+                        ManufactureDate = entry.ManufactureDate
+                    }).ToList();
                     return Ok(allCurrentProducts);
                 }
             }
@@ -28,7 +35,7 @@ namespace SiemensWebAPI.Controllers
         }
 
         [Route("api/stock/lastMonthEv")]
-        [HttpPost]
+        [HttpGet]
         public IHttpActionResult LastMonthEvolution()
         {
             try

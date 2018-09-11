@@ -13,5 +13,5 @@
       "TimeMeasurementUnit": "days"
     }
   ],
-  "RecipeName": "Chipsuri cu BBQ 300"
+  "RecipeName": "ChipsuriCuBBQ300"
 }
