@@ -39,7 +39,7 @@ namespace SiemensWebAPI.Controllers
                                                       .ToList();                          
                             LoggerHelper.Order(" a fost finalizata cu succes cu id-ul ", idOrder.LastOrDefault().ToString() + ". " + order.Amount + " produse <" + order.Recipe + "> au fost create cu succes.");
                             LoggerHelper.Products(order.Amount);
-                            return Ok("Comanda efectuata cu succes");
+                            return Ok("SUCCESS");
                         }
                         else
                         {
@@ -47,7 +47,7 @@ namespace SiemensWebAPI.Controllers
                             return Ok(OrdersManagementHelper.OrderValidation(Ingredients, order.Amount));
                         }
                     }
-                    else return Ok("Nu exista reteta");
+                    else return NotFound();
                 }
             }
             catch (InvalidOperationException e)
