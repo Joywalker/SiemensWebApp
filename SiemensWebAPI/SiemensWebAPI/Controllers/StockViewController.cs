@@ -35,7 +35,7 @@ namespace SiemensWebAPI.Controllers
         }
 
         [Route("api/stock/lastMonthEv")]
-        [HttpPost]
+        [HttpGet]
         public IHttpActionResult LastMonthEvolution()
         {
             try

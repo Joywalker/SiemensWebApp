@@ -28,5 +28,5 @@
       "TimeMeasurementUnit": "days"
     }
   ],
-  "RecipeName": "Chipsuri cu sare 200"
+  "RecipeName": "ChipsuriCuSare200"
 }
