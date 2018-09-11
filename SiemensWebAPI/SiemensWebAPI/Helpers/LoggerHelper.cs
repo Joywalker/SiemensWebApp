@@ -39,6 +39,15 @@ namespace SiemensWebAPI.Helpers
             }
         }
 
+        public static void Products(int products)
+        {
+            String today = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(LOGGER_FOLDER_PATH, true))
+            {
+                file.WriteLine("Stocul de produse a crescut cu " + products + " produse." + " (" + today + ")");
+            }
+        }
+
 
     }
 }
