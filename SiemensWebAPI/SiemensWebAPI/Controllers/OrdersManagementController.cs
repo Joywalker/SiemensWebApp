@@ -31,12 +31,12 @@ namespace SiemensWebAPI.Controllers
                         {
                             var NewIngredients = OrdersManagementHelper.ExtractIngredients(Ingredients, order.Amount);
                             RecipeViewModel NewRecipe = new RecipeViewModel(recipe.RecipeName, NewIngredients, recipe.Actions);
-                            OrdersManagementHelper.AddOrder(order);                          
-                            return Ok("Comanda efectuata cu succes");
+                            OrdersManagementHelper.AddOrder(order);
+                            return Ok("SUCCESS");
                         }
                         else return Ok(OrdersManagementHelper.OrderValidation(Ingredients, order.Amount));
                     }
-                    else return Ok("Nu exista reteta");
+                    else return NotFound();
                 }
             }
             catch (InvalidOperationException e)
