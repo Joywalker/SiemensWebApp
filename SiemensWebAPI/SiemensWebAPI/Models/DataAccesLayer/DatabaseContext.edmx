@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DbContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DatabaseModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Feedstock">
           <Key>
             <PropertyRef Name="ID" />
@@ -28,6 +28,16 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="BagSize" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductStock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Recipe" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ManufactureDate" Type="date" />
         </EntityType>
         <EntityType Name="Supply">
           <Key>
@@ -87,10 +97,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DbContextStoreContainer">
+        <EntityContainer Name="DatabaseModelModelStoreContainer">
           <EntitySet Name="Feedstock" EntityType="Self.Feedstock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStock" EntityType="Self.ProductStock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
@@ -103,10 +114,11 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DbContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DatabaseModelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Feedstock">
           <Key>
             <PropertyRef Name="ID" />
@@ -114,7 +126,15 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Warehouses" Relationship="DbContext.FK_Warehouse_Feedstock" FromRole="Feedstock" ToRole="Warehouse" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_Warehouse_Feedstock" FromRole="Feedstock" ToRole="Warehouse" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID_order" />
+          </Key>
+          <Property Name="ID_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Recipe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -123,6 +143,28 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BagSize" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductStock">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="Recipe" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufactureDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="ID_supply" />
+          </Key>
+          <Property Name="ID_supply" Type="Int32" Nullable="false" />
+          <Property Name="ID_compartment" Type="Int32" Nullable="false" />
+          <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
+          <Property Name="DateOfRessuply" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfExpiration" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Supply_Warehouse" FromRole="Supply" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
@@ -137,34 +179,6 @@
           <Property Name="Employee_ID" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserRole" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Feedstocks" EntityType="Self.Feedstock" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
-          <EntitySet Name="Supplies" EntityType="DbContext.Supply" />
-          <EntitySet Name="Warehouses" EntityType="DbContext.Warehouse" />
-          <AssociationSet Name="FK_Supply_Warehouse" Association="DbContext.FK_Supply_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouses" />
-            <End Role="Supply" EntitySet="Supplies" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Warehouse_Feedstock" Association="DbContext.FK_Warehouse_Feedstock">
-            <End Role="Feedstock" EntitySet="Feedstocks" />
-            <End Role="Warehouse" EntitySet="Warehouses" />
-          </AssociationSet>
-          <EntitySet Name="Orders" EntityType="DbContext.Order" />
-        </EntityContainer>
-        <EntityType Name="Supply">
-          <Key>
-            <PropertyRef Name="ID_supply" />
-          </Key>
-          <Property Name="ID_supply" Type="Int32" Nullable="false" />
-          <Property Name="ID_compartment" Type="Int32" Nullable="false" />
-          <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
-          <Property Name="DateOfRessuply" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfExpiration" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Warehouse" Relationship="DbContext.FK_Supply_Warehouse" FromRole="Supply" ToRole="Warehouse" />
-        </EntityType>
         <EntityType Name="Warehouse">
           <Key>
             <PropertyRef Name="ID_compartment" />
@@ -174,24 +188,12 @@
           <Property Name="ID_feedstock" Type="Int32" Nullable="false" />
           <Property Name="Quantity_Held" Type="Int32" />
           <Property Name="ID_supply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Supplies" Relationship="DbContext.FK_Supply_Warehouse" FromRole="Warehouse" ToRole="Supply" />
-          <NavigationProperty Name="Feedstock" Relationship="DbContext.FK_Warehouse_Feedstock" FromRole="Warehouse" ToRole="Feedstock" />
+          <NavigationProperty Name="Feedstock" Relationship="Self.FK_Warehouse_Feedstock" FromRole="Warehouse" ToRole="Feedstock" />
+          <NavigationProperty Name="Supplies" Relationship="Self.FK_Supply_Warehouse" FromRole="Warehouse" ToRole="Supply" />
         </EntityType>
-        <Association Name="FK_Supply_Warehouse">
-          <End Type="DbContext.Warehouse" Role="Warehouse" Multiplicity="1" />
-          <End Type="DbContext.Supply" Role="Supply" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="ID_compartment" />
-            </Principal>
-            <Dependent Role="Supply">
-              <PropertyRef Name="ID_compartment" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Warehouse_Feedstock">
-          <End Type="DbContext.Feedstock" Role="Feedstock" Multiplicity="1" />
-          <End Type="DbContext.Warehouse" Role="Warehouse" Multiplicity="*" />
+          <End Role="Feedstock" Type="Self.Feedstock" Multiplicity="1" />
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Feedstock">
               <PropertyRef Name="ID" />
@@ -201,22 +203,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="ID_order" />
-          </Key>
-          <Property Name="ID_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Recipe" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-        </EntityType>
+        <Association Name="FK_Supply_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="ID_compartment" />
+            </Principal>
+            <Dependent Role="Supply">
+              <PropertyRef Name="ID_compartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Feedstocks" EntityType="Self.Feedstock" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductStocks" EntityType="Self.ProductStock" />
+          <EntitySet Name="Supplies" EntityType="Self.Supply" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+          <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+          <AssociationSet Name="FK_Warehouse_Feedstock" Association="Self.FK_Warehouse_Feedstock">
+            <End Role="Feedstock" EntitySet="Feedstocks" />
+            <End Role="Warehouse" EntitySet="Warehouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supply_Warehouse" Association="Self.FK_Supply_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Supply" EntitySet="Supplies" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DbContextStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Feedstocks">
-            <EntityTypeMapping TypeName="DbContext.Feedstock">
+            <EntityTypeMapping TypeName="DatabaseModelModel.Feedstock">
               <MappingFragment StoreEntitySet="Feedstock">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -224,8 +247,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DatabaseModelModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ID_order" ColumnName="ID_order" />
+                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="DbContext.Product">
+            <EntityTypeMapping TypeName="DatabaseModelModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -233,8 +265,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProductStocks">
+            <EntityTypeMapping TypeName="DatabaseModelModel.ProductStock">
+              <MappingFragment StoreEntitySet="ProductStock">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
+                <ScalarProperty Name="ManufactureDate" ColumnName="ManufactureDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplies">
+            <EntityTypeMapping TypeName="DatabaseModelModel.Supply">
+              <MappingFragment StoreEntitySet="Supply">
+                <ScalarProperty Name="ID_supply" ColumnName="ID_supply" />
+                <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
+                <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
+                <ScalarProperty Name="DateOfRessuply" ColumnName="DateOfRessuply" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DateOfExpiration" ColumnName="DateOfExpiration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserAccounts">
-            <EntityTypeMapping TypeName="DbContext.UserAccount">
+            <EntityTypeMapping TypeName="DatabaseModelModel.UserAccount">
               <MappingFragment StoreEntitySet="UserAccounts">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -247,39 +302,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Supplies">
-            <EntityTypeMapping TypeName="DbContext.Supply">
-              <MappingFragment StoreEntitySet="Supply">
-                <ScalarProperty Name="DateOfExpiration" ColumnName="DateOfExpiration" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="DateOfRessuply" ColumnName="DateOfRessuply" />
-                <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
-                <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
-                <ScalarProperty Name="ID_supply" ColumnName="ID_supply" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Warehouses">
-            <EntityTypeMapping TypeName="DbContext.Warehouse">
+            <EntityTypeMapping TypeName="DatabaseModelModel.Warehouse">
               <MappingFragment StoreEntitySet="Warehouse">
-                <ScalarProperty Name="ID_supply" ColumnName="ID_supply" />
-                <ScalarProperty Name="Quantity_Held" ColumnName="Quantity_Held" />
-                <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
-                <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
                 <ScalarProperty Name="ID_warehouse" ColumnName="ID_warehouse" />
+                <ScalarProperty Name="ID_compartment" ColumnName="ID_compartment" />
+                <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
+                <ScalarProperty Name="Quantity_Held" ColumnName="Quantity_Held" />
+                <ScalarProperty Name="ID_supply" ColumnName="ID_supply" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="DbContext.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
-                <ScalarProperty Name="ID_order" ColumnName="ID_order" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

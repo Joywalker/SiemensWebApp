@@ -28,6 +28,7 @@ namespace SiemensWebAPI.Controllers
                     {
                         var Ingredients = recipe.Ingredients;
 
+
                         if (OrdersManagementHelper.OrderValidation(Ingredients, order.Amount).ElementAt(0).Key.Equals("true"))
                         {
                             var NewIngredients = OrdersManagementHelper.ExtractIngredients(Ingredients, order.Amount);
@@ -55,9 +56,9 @@ namespace SiemensWebAPI.Controllers
                 }
             }
             catch (InvalidOperationException e)
-            {
-                Console.WriteLine("Exception in OrdersManagementControllere/api/Order", e.ToString());
-                return NotFound();
+            {                
+                    Console.WriteLine("Exception in OrdersManagementControllere/api/Order", e.ToString());
+                    return NotFound();                
             }
         }
         [Route("api/orders/get")]
