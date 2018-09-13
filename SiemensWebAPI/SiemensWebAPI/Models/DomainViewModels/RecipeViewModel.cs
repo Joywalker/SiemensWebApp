@@ -10,6 +10,10 @@ namespace SiemensWebAPI.Models.DomainViewModels
         public String IngredientName { get; set; }
         public int Quantity { get; set; }
         public String MeasurementUnit { get; set; }
+        override  public String ToString()
+        {
+            return IngredientName + "|" + Quantity + "|" + MeasurementUnit + "_";
+        }
     }
 
     public class RecipeAction

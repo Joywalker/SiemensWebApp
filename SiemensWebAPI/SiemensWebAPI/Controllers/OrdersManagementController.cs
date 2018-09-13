@@ -6,6 +6,7 @@ using System.Web.Http;
 using SiemensWebAPI.Models.DomainViewModels;
 using SiemensWebAPI.Helpers;
 using SiemensWebAPI.Models.DataAccesLayer;
+using communicationModule;
 
 namespace SiemensWebAPI.Controllers
 {
@@ -30,11 +31,25 @@ namespace SiemensWebAPI.Controllers
                         if (OrdersManagementHelper.OrderValidation(Ingredients, order.Amount).ElementAt(0).Key.Equals("true"))
                         {
                             var NewIngredients = OrdersManagementHelper.ExtractIngredients(Ingredients, order.Amount);
+
                             RecipeViewModel NewRecipe = new RecipeViewModel(recipe.RecipeName, NewIngredients, recipe.Actions);
                             OrdersManagementHelper.AddOrder(order);
-                            return Ok("SUCCESS");
+                            var idOrder = dbctx.Orders.Where(ord => ord.Recipe.Equals(order.Recipe))
+                                                      .Where(ord => ord.Amount.Equals(order.Amount))
+                                                      .Select(column => column.ID_order)
+                                                      .ToList();
+                            MethodsClass mc = new MethodsClass();
+                            string s = RecipeManagementHelper.ParseObjectToStringForMSMQ(NewRecipe).ToString();
+                            mc.SendMessage(s);
+                            LoggerHelper.Order(" a fost finalizata cu succes cu id-ul ", idOrder.LastOrDefault().ToString() + ". " + order.Amount + " produse <" + order.Recipe + "> au fost create cu succes.");
+                            LoggerHelper.Products(order.Amount);
+                            return Ok("Ok");
                         }
-                        else return Ok(OrdersManagementHelper.OrderValidation(Ingredients, order.Amount));
+                        else
+                        {
+                            LoggerHelper.Order(" a fost finalizata cu eroare.", "");
+                            return Ok(OrdersManagementHelper.OrderValidation(Ingredients, order.Amount));
+                        }
                     }
                     else return NotFound();
                 }
