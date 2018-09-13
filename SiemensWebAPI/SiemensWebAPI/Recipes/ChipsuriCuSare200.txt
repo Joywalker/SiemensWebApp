@@ -26,6 +26,12 @@
       "ActionName": "Cook",
       "Duration": 1,
       "TimeMeasurementUnit": "days"
+    },
+
+    {
+      "ActionName": "Mix",
+      "Duration": 2,
+      "TimeMeasurementUnit": "hours"
     }
   ],
   "RecipeName": "ChipsuriCuSare200"

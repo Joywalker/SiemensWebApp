@@ -18,22 +18,28 @@ namespace SiemensWebAPI.Helpers
         private static String RECIPES_FOLDER_NAME = "/Recipes/";
         private static String RECIPES_FOLDER_PATH = PROJECT_BASE_PATH + RECIPES_FOLDER_NAME;
 
-        public static StringBuilder ParseObjectToStringForMSMQ(RecipeViewModel recipe)
+        public static string ParseObjectToStringForMSMQ(RecipeViewModel recipe)
         {
             try
             {
-                StringBuilder ingredientsSB = new StringBuilder("|");
+                StringBuilder ingredientsSB = new StringBuilder("");
                 StringBuilder actionsSB = new StringBuilder("$");
 
                 foreach (Ingredient ingr in recipe.Ingredients)
                 {
-                    ingredientsSB.Append(ingr.IngredientName + "|" + ingr.Quantity + "|" + ingr.MeasurementUnit + "|");
+                    ingredientsSB.Append(ingr.IngredientName + "|" + ingr.Quantity + "|" + ingr.MeasurementUnit + "_");
                 }
+
+                string finalIngredients = ingredientsSB.ToString(0, ingredientsSB.Length - 1);
+
                 foreach (RecipeAction action in recipe.Actions)
                 {
-                    actionsSB.Append(action.ActionName + "|" + action.Duration + "|" + action.TimeMeasurementUnit + "|");
+                    actionsSB.Append(action.ActionName + "|" + action.Duration + "|" + action.TimeMeasurementUnit + "_");
                 }
-                var finalString = ingredientsSB.Append(actionsSB);
+
+                string finalActions = actionsSB.ToString(0, actionsSB.Length - 1);
+
+                var finalString = finalIngredients + finalActions;
                 return finalString;
             }
             catch (ArgumentNullException ex)
