@@ -85,6 +85,35 @@ namespace SiemensWebAPI.Controllers
             }
         }
 
+        [Route("api/Storage/getOptions")]
+        [HttpGet]
+        public IHttpActionResult getOptionsForStorageEdit()
+        {
+            using (DatabaseContext dbctx = new DatabaseContext())
+            {
+                try
+                {
+                    var optionsList = dbctx.Warehouses.Join(dbctx.Feedstocks,
+                        warehouse => warehouse.ID_feedstock,
+                        feedstock => feedstock.ID,
+                        (warehouse, feedstock) => new { WH = warehouse, FS = feedstock })
+                        .Where(warehouseAndFeedstock => warehouseAndFeedstock.FS.ID == warehouseAndFeedstock.WH.ID_feedstock).Select(entry => new
+                        {
+                            entry.WH.ID_warehouse,
+                            entry.WH.ID_compartment,
+                            entry.FS.Name
+                        }).Distinct().ToList();
+
+                    return Ok(optionsList);
+                }
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine("Exception in StorageManagementControllere/api/Storage", e.ToString());
+                    return NotFound();
+                }
+            }
+        }
+
         [Route("api/EditStorage")]
         [HttpPost]
         public IHttpActionResult UpdateWarehouse(UpdateViewModel update)
