@@ -9,7 +9,7 @@ namespace SiemensWebAPI.Models.DomainViewModels
     {
         public int ID_SC { get; set; } // id comp sursa
         public int ID_DC { get; set; } // id comp destinatar 
-        public int ID_Material { get; set; }
+        public string MaterialName { get; set; }
         public int Quantity { get; set; }
     }
 }

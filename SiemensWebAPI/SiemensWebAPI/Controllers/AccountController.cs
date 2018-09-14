@@ -89,5 +89,25 @@ namespace SiemensWebAPI.Controllers
             }
             return NotFound();
         }
+
+        [HttpPost]
+        [Route("api/user/register")]
+        public IHttpActionResult AddNewUser(UserAccount user)
+        {
+            try
+            {
+                using (DatabaseContext dbctx = new DatabaseContext())
+                {
+                    dbctx.UserAccounts.Add(user);
+                    dbctx.SaveChanges();
+                    return Ok(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in AccountController/api/user/register", ex.ToString());
+                return NotFound();
+            }
+        }
     }
 }

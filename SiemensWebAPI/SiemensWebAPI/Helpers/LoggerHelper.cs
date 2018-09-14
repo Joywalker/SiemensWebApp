@@ -21,7 +21,7 @@ namespace SiemensWebAPI.Helpers
             }
         }
 
-        public static void UpdateWarehouse(int id_material, int id_swarehouse, int id_scompartment, int id_dwarehouse, int id__dcompartment)
+        public static void UpdateWarehouse(string id_material, int id_swarehouse, int id_scompartment, int id_dwarehouse, int id__dcompartment)
         {
             String today = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(LOGGER_FOLDER_PATH, true))
