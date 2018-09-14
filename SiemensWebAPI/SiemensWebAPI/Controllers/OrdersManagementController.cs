@@ -49,7 +49,6 @@ namespace SiemensWebAPI.Controllers
                             LoggerHelper.Order(" a fost finalizata cu eroare.", "");
                             return Ok(OrdersManagementHelper.OrderValidation(Ingredients, order.Amount));
                         }
-
                     }
                     else return NotFound();
                 }

@@ -5,7 +5,10 @@ Stocul de produse a crescut cu 10 produse (2018-09-10 04:12:48)
 Comanda  a fost finalizata cu succes cu id-ul 9. 10 produse <Chipsuri cu sare 200> au fost create cu succes. (2018-09-10 04:17:52)
 Stocul de produse a crescut cu 10 produse (2018-09-10 04:17:52)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feature/ServerAPI-005.OrdersManagementController
 Comanda  a fost finalizata cu succes cu id-ul 10. 5 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 03:36:15)
 Stocul de produse a crescut cu 5 produse. (2018-09-12 03:36:15)
 Comanda  a fost finalizata cu succes cu id-ul 11. 5 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 03:55:13)
@@ -21,4 +24,9 @@ Stocul de produse a crescut cu 2 produse. (2018-09-12 04:25:49)
 Comanda  a fost finalizata cu succes cu id-ul 16. 2 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-13 11:08:45)
 Stocul de produse a crescut cu 2 produse. (2018-09-13 11:08:45)
 Comanda  a fost finalizata cu eroare. (2018-09-13 11:09:49)
+<<<<<<< HEAD
+>>>>>>> feature/ServerAPI-005.OrdersManagementController
+=======
+=======
+>>>>>>> feature/ServerAPI-006.Logger
 >>>>>>> feature/ServerAPI-005.OrdersManagementController
