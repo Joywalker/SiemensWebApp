@@ -119,7 +119,7 @@ namespace SiemensWebAPI.Controllers
         {
             try
             {
-                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.MaterialValidation(update.ID_Material))
+                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.MaterialValidation(update.MaterialName))
                 {
                     using (DatabaseContext dbctx = new DatabaseContext())
                     {
@@ -131,8 +131,10 @@ namespace SiemensWebAPI.Controllers
                         int[] sup = StorageDataManagerHelper.SplitString(supplyes);
 
                         // materia prima ce trebuie mutata
-                        int id_material = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_DC))
-                                                          .Select(column => column.ID_feedstock).First(); // materia prima ce trebuie mutata
+                        string id_material = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_DC))
+                                                          .Join(dbctx.Feedstocks, wh => wh.ID_feedstock, fs => fs.ID, (wh,fs)=> new { wh, fs })
+                                                          .Where(whAndfs => whAndfs.fs.ID == whAndfs.wh.ID_feedstock)
+                                                          .Select(column => column.fs.Name).First(); // materia prima ce trebuie mutata
 
                         // variabila pentru depozitul destinatie
                         var dataDestination = (from warehouse in dbctx.Warehouses
@@ -156,9 +158,10 @@ namespace SiemensWebAPI.Controllers
 
                         // cantitatea de la utima aprovizionare a compartimentului din depozitul sursa
                         var LastSupplyQuantity = dataSource.ElementAt(sup.Length - 1).Source.Quantity;
-                        if (update.ID_Material == id_material && update.Quantity < quantitySource)
+                        if (update.MaterialName == id_material && update.Quantity < quantitySource)
+
                         {
-                            LoggerHelper.UpdateWarehouse(update.ID_Material,update.ID_SC, update.ID_SC, update.ID_DC, update.ID_DC);
+                            LoggerHelper.UpdateWarehouse(update.MaterialName ,update.ID_SC, update.ID_SC, update.ID_DC, update.ID_DC);
                             dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).Quantity_Held += update.Quantity;
                             dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).Quantity_Held -= update.Quantity;
 
@@ -177,8 +180,7 @@ namespace SiemensWebAPI.Controllers
 
                         else
                         {
-
-                            return Ok("Not ok!");
+                            return Ok("NEQ"); // not enough quantity
                         }
                     }
                 }
