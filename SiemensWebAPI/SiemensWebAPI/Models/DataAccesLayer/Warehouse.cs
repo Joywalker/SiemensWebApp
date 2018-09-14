@@ -26,6 +26,7 @@ namespace SiemensWebAPI.Models.DataAccesLayer
         public Nullable<int> Quantity_Held { get; set; }
         public string ID_supply { get; set; }
     
+        public virtual Feedstock Feedstock { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supply> Supplies { get; set; }
     }

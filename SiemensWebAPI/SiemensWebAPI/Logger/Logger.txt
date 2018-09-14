@@ -1,0 +1,32 @@
+Comanda  a fost finalizata cu eroare. (2018-09-10 03:41:02)
+Comanda  a fost finalizata cu eroare. (2018-09-10 03:44:12)
+Comanda  a fost finalizata cu succes cu id-ul 8. 10 de produse <Chipsuri cu sare 200> au fost create cu succes. (2018-09-10 04:12:48)
+Stocul de produse a crescut cu 10 produse (2018-09-10 04:12:48)
+Comanda  a fost finalizata cu succes cu id-ul 9. 10 produse <Chipsuri cu sare 200> au fost create cu succes. (2018-09-10 04:17:52)
+Stocul de produse a crescut cu 10 produse (2018-09-10 04:17:52)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feature/ServerAPI-005.OrdersManagementController
+Comanda  a fost finalizata cu succes cu id-ul 10. 5 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 03:36:15)
+Stocul de produse a crescut cu 5 produse. (2018-09-12 03:36:15)
+Comanda  a fost finalizata cu succes cu id-ul 11. 5 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 03:55:13)
+Stocul de produse a crescut cu 5 produse. (2018-09-12 03:55:13)
+Comanda  a fost finalizata cu succes cu id-ul 12. 5 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 04:00:21)
+Stocul de produse a crescut cu 5 produse. (2018-09-12 04:00:21)
+Comanda  a fost finalizata cu succes cu id-ul 13. 2 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 04:21:26)
+Stocul de produse a crescut cu 2 produse. (2018-09-12 04:21:26)
+Comanda  a fost finalizata cu succes cu id-ul 14. 2 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 04:22:59)
+Stocul de produse a crescut cu 2 produse. (2018-09-12 04:22:59)
+Comanda  a fost finalizata cu succes cu id-ul 15. 2 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-12 04:25:49)
+Stocul de produse a crescut cu 2 produse. (2018-09-12 04:25:49)
+Comanda  a fost finalizata cu succes cu id-ul 16. 2 produse <ChipsuriCuSare200> au fost create cu succes. (2018-09-13 11:08:45)
+Stocul de produse a crescut cu 2 produse. (2018-09-13 11:08:45)
+Comanda  a fost finalizata cu eroare. (2018-09-13 11:09:49)
+<<<<<<< HEAD
+>>>>>>> feature/ServerAPI-005.OrdersManagementController
+=======
+=======
+>>>>>>> feature/ServerAPI-006.Logger
+>>>>>>> feature/ServerAPI-005.OrdersManagementController

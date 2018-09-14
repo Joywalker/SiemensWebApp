@@ -1,0 +1,38 @@
+{
+  "Ingredients": [
+    {
+      "IngredientName": "Cartofi",
+      "Quantity": 20,
+      "MeasurementUnit": "kg"
+
+    },
+
+     {
+      "IngredientName": "Sare",
+      "Quantity": 10,
+      "MeasurementUnit": "kg"
+
+    },
+
+     {
+      "IngredientName": "Ulei",
+      "Quantity": 10,
+      "MeasurementUnit": "kg"
+
+    }
+  ],
+  "Actions": [
+    {
+      "ActionName": "Cook",
+      "Duration": 1,
+      "TimeMeasurementUnit": "days"
+    },
+
+    {
+      "ActionName": "Mix",
+      "Duration": 2,
+      "TimeMeasurementUnit": "hours"
+    }
+  ],
+  "RecipeName": "ChipsuriCuSare200"
+}

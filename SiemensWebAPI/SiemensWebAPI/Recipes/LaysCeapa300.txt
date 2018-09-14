@@ -9,6 +9,11 @@
       "IngredientName": "Cheese",
       "Quantity": 1,
       "MeasurementUnit": "g"
+    },
+    {
+      "IngredientName": "Pepper",
+      "Quantity": 11,
+      "MeasurementUnit": "g"
     }
   ],
   "Actions": [
@@ -23,5 +28,5 @@
       "TimeMeasurementUnit": "hours"
     }
   ],
-  "RecipeName": "Maria"
+  "RecipeName": "LaysCeapa300"
 }

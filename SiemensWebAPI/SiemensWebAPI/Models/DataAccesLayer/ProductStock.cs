@@ -12,19 +12,12 @@ namespace SiemensWebAPI.Models.DataAccesLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Feedstock
+    public partial class ProductStock
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Feedstock()
-        {
-            this.Warehouses = new HashSet<Warehouse>();
-        }
-    
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Warehouse> Warehouses { get; set; }
+        public Nullable<int> Number { get; set; }
+        public string Recipe { get; set; }
+        public Nullable<System.DateTime> ManufactureDate { get; set; }
     }
 }

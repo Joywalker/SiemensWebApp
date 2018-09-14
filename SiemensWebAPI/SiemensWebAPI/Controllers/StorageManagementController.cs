@@ -85,28 +85,54 @@ namespace SiemensWebAPI.Controllers
             }
         }
 
+        [Route("api/Storage/getOptions")]
+        [HttpGet]
+        public IHttpActionResult getOptionsForStorageEdit()
+        {
+            using (DatabaseContext dbctx = new DatabaseContext())
+            {
+                try
+                {
+                    var optionsList = dbctx.Warehouses.Join(dbctx.Feedstocks,
+                        warehouse => warehouse.ID_feedstock,
+                        feedstock => feedstock.ID,
+                        (warehouse, feedstock) => new { WH = warehouse, FS = feedstock })
+                        .Where(warehouseAndFeedstock => warehouseAndFeedstock.FS.ID == warehouseAndFeedstock.WH.ID_feedstock).Select(entry => new
+                        {
+                            entry.WH.ID_compartment,
+                            entry.FS.Name
+                        }).Distinct().ToList();
+
+                    return Ok(optionsList);
+                }
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine("Exception in StorageManagementControllere/api/Storage", e.ToString());
+                    return NotFound();
+                }
+            }
+        }
+
         [Route("api/EditStorage")]
         [HttpPost]
         public IHttpActionResult UpdateWarehouse(UpdateViewModel update)
         {
             try
             {
-                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.WarehouseValidation(update.ID_DW) && StorageDataManagerHelper.WarehouseValidation(update.ID_SW) && StorageDataManagerHelper.MaterialValidation(update.ID_Material))
+                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.MaterialValidation(update.ID_Material))
                 {
                     using (DatabaseContext dbctx = new DatabaseContext())
                     {
                         //stringul ID_supplyes din Warehouse pentru dep sursa
-                        string supplyes = dbctx.Warehouses.Where(whouse => whouse.ID_warehouse.Equals(update.ID_SW))
-                                                       .Where(comp => comp.ID_compartment.Equals(update.ID_SC))
-                                                       .Select(column => column.ID_supply).FirstOrDefault();
+                        string supplyes = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_SC))
+                                                          .Select(column => column.ID_supply).FirstOrDefault();
 
                         // array format din stringurile supplyes
                         int[] sup = StorageDataManagerHelper.SplitString(supplyes);
 
                         // materia prima ce trebuie mutata
-                        int id_material = dbctx.Warehouses.Where(whouse => whouse.ID_warehouse.Equals(update.ID_DW))
-                                                              .Where(comp => comp.ID_compartment.Equals(update.ID_DC))
-                                                              .Select(column => column.ID_feedstock).First(); // materia prima ce trebuie mutata
+                        int id_material = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_DC))
+                                                          .Select(column => column.ID_feedstock).First(); // materia prima ce trebuie mutata
 
                         // variabila pentru depozitul destinatie
                         var dataDestination = (from warehouse in dbctx.Warehouses
@@ -124,7 +150,7 @@ namespace SiemensWebAPI.Controllers
                                          ).ToList();
 
                         //cantitatea din depozitul sursa
-                        int quantitySource = dbctx.Warehouses.Where(whouse => whouse.ID_warehouse.Equals(update.ID_SW))
+                        int quantitySource = dbctx.Warehouses
                                                         .Where(comp => comp.ID_compartment.Equals(update.ID_SC))
                                                         .Select(column => column.Quantity_Held).First().Value;
 
@@ -132,25 +158,27 @@ namespace SiemensWebAPI.Controllers
                         var LastSupplyQuantity = dataSource.ElementAt(sup.Length - 1).Source.Quantity;
                         if (update.ID_Material == id_material && update.Quantity < quantitySource)
                         {
-                            dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).Quantity_Held += update.Quantity;
-                            dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_SW && w.ID_compartment == update.ID_SC).Quantity_Held -= update.Quantity;
+                            LoggerHelper.UpdateWarehouse(update.ID_Material,update.ID_SC, update.ID_SC, update.ID_DC, update.ID_DC);
+                            dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).Quantity_Held += update.Quantity;
+                            dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).Quantity_Held -= update.Quantity;
 
                             if (update.Quantity.ToString().Equals(LastSupplyQuantity))
                             {
-                                dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_SW && w.ID_compartment == update.ID_SC).ID_supply = dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_SW && w.ID_compartment == update.ID_SC).ID_supply.Remove(supplyes.Length - 2);
-                                dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
+                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).ID_supply = dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).ID_supply.Remove(supplyes.Length - 2);
+                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
                             }
                             else
                             {
-                                dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
+                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
                             }
                             dbctx.SaveChanges();
-                            return Ok("Ok!");
+                            return Ok("Ok");
                         }
 
                         else
                         {
-                            return Ok("The amount of material you want to send is higher than what is available in the source warehouse or the amount of material you want to send does not match that of the destination warehouse!");
+
+                            return Ok("Not ok!");
                         }
                     }
                 }
@@ -158,7 +186,7 @@ namespace SiemensWebAPI.Controllers
             }
             catch (InvalidOperationException e)
             {
-                Console.WriteLine("Exception in StorageManagementControllere/api/Ioana", e.ToString());
+                Console.WriteLine("Exception in StorageManagementControllere/api/EditStorage", e.ToString());
                 return NotFound();
             }
         }

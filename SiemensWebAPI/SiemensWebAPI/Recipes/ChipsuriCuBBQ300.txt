@@ -1,0 +1,17 @@
+{
+  "Ingredients": [
+    {
+      "IngredientName": "Cartofi",
+      "Quantity": 1,
+      "MeasurementUnit": "kg"
+    }
+  ],
+  "Actions": [
+    {
+      "ActionName": "Cook",
+      "Duration": 1,
+      "TimeMeasurementUnit": "days"
+    }
+  ],
+  "RecipeName": "ChipsuriCuBBQ300"
+}
