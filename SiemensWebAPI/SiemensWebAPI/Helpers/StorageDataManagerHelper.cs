@@ -51,7 +51,7 @@ namespace SiemensWebAPI.Helpers
                     var compartments = dbctx.Warehouses.Select(column => column.ID_compartment).Distinct().ToList();
                     foreach (var comp in compartments)
                     {
-                        if (compartment == comp) result = true;
+                        if (compartment == comp) return true;
                     }
                 }
 
@@ -77,7 +77,7 @@ namespace SiemensWebAPI.Helpers
                     var warehouses = dbctx.Warehouses.Select(column => column.ID_warehouse).Distinct().ToList();
                     foreach (var ware in warehouses)
                     {
-                        if (warehouse == ware) result = true;
+                        if (warehouse == ware) return true;
                     }
                 }
 
@@ -92,7 +92,7 @@ namespace SiemensWebAPI.Helpers
 
 
         }
-        public static bool MaterialValidation(int ID_material)
+        public static bool MaterialValidation(String materialName)
         {
             bool result = false;
             try
@@ -100,10 +100,10 @@ namespace SiemensWebAPI.Helpers
 
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
-                    var ID_materials = dbctx.Feedstocks.Select(column => column.ID).Distinct().ToList();
-                    foreach (var id in ID_materials)
+                    var ID_materials = dbctx.Feedstocks.Select(column => column.Name).Distinct().ToList();
+                    foreach (var nameID in ID_materials)
                     {
-                        if (ID_material == id) result = true;
+                        if (materialName == nameID) return true;
                     }
                 }
 

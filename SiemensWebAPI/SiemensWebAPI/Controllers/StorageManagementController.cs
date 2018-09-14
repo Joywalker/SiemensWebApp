@@ -123,7 +123,7 @@ namespace SiemensWebAPI.Controllers
         {
             try
             {
-                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.MaterialValidation(update.ID_Material))
+                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.MaterialValidation(update.MaterialName))
                 {
 
                     using (DatabaseContext dbctx = new DatabaseContext())
@@ -137,8 +137,10 @@ namespace SiemensWebAPI.Controllers
                         int[] sup = StorageDataManagerHelper.SplitString(supplyes);
 
                         // materia prima ce trebuie mutata
-                        int id_material = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_DC))
-                                                          .Select(column => column.ID_feedstock).First(); // materia prima ce trebuie mutata
+                        string id_material = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_DC))
+                                                          .Join(dbctx.Feedstocks, wh => wh.ID_feedstock, fs => fs.ID, (wh,fs)=> new { wh, fs })
+                                                          .Where(whAndfs => whAndfs.fs.ID == whAndfs.wh.ID_feedstock)
+                                                          .Select(column => column.fs.Name).First(); // materia prima ce trebuie mutata
 
                         // variabila pentru depozitul destinatie
                         var dataDestination = (from warehouse in dbctx.Warehouses
@@ -164,7 +166,7 @@ namespace SiemensWebAPI.Controllers
                         var LastSupplyQuantity = dataSource.ElementAt(sup.Length - 1).Source.Quantity;
 
 
-                        if (update.ID_Material == id_material && update.Quantity < quantitySource)
+                        if (update.MaterialName == id_material && update.Quantity < quantitySource)
                         {
 
 
@@ -192,7 +194,7 @@ namespace SiemensWebAPI.Controllers
 
                         else
                         {
-                            return Ok("The amount of material you want to send is higher than what is available in the source warehouse or the amount of material you want to send does not match that of the destination warehouse!");
+                            return Ok("NEQ"); // not enough quantity
                         }
                     }
                 }
