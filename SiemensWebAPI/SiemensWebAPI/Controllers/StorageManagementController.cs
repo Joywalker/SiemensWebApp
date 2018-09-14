@@ -103,7 +103,6 @@ namespace SiemensWebAPI.Controllers
                         (warehouse, feedstock) => new { WH = warehouse, FS = feedstock })
                         .Where(warehouseAndFeedstock => warehouseAndFeedstock.FS.ID == warehouseAndFeedstock.WH.ID_feedstock).Select(entry => new
                         {
-                            entry.WH.ID_warehouse,
                             entry.WH.ID_compartment,
                             entry.FS.Name
                         }).Distinct().ToList();
@@ -124,24 +123,22 @@ namespace SiemensWebAPI.Controllers
         {
             try
             {
-                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.WarehouseValidation(update.ID_DW) && StorageDataManagerHelper.WarehouseValidation(update.ID_SW) && StorageDataManagerHelper.MaterialValidation(update.ID_Material))
+                if (StorageDataManagerHelper.CompartmentValidation(update.ID_DC) && StorageDataManagerHelper.CompartmentValidation(update.ID_SC) && StorageDataManagerHelper.MaterialValidation(update.ID_Material))
                 {
 
                     using (DatabaseContext dbctx = new DatabaseContext())
                     {
 
                         //stringul ID_supplyes din Warehouse pentru dep sursa
-                        string supplyes = dbctx.Warehouses.Where(whouse => whouse.ID_warehouse.Equals(update.ID_SW))
-                                                       .Where(comp => comp.ID_compartment.Equals(update.ID_SC))
-                                                       .Select(column => column.ID_supply).FirstOrDefault();
+                        string supplyes = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_SC))
+                                                          .Select(column => column.ID_supply).FirstOrDefault();
 
                         // array format din stringurile supplyes
                         int[] sup = StorageDataManagerHelper.SplitString(supplyes);
 
                         // materia prima ce trebuie mutata
-                        int id_material = dbctx.Warehouses.Where(whouse => whouse.ID_warehouse.Equals(update.ID_DW))
-                                                              .Where(comp => comp.ID_compartment.Equals(update.ID_DC))
-                                                              .Select(column => column.ID_feedstock).First(); // materia prima ce trebuie mutata
+                        int id_material = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_DC))
+                                                          .Select(column => column.ID_feedstock).First(); // materia prima ce trebuie mutata
 
                         // variabila pentru depozitul destinatie
                         var dataDestination = (from warehouse in dbctx.Warehouses
@@ -159,7 +156,7 @@ namespace SiemensWebAPI.Controllers
                                          ).ToList();
 
                         //cantitatea din depozitul sursa
-                        int quantitySource = dbctx.Warehouses.Where(whouse => whouse.ID_warehouse.Equals(update.ID_SW))
+                        int quantitySource = dbctx.Warehouses
                                                         .Where(comp => comp.ID_compartment.Equals(update.ID_SC))
                                                         .Select(column => column.Quantity_Held).First().Value;
 
@@ -171,21 +168,21 @@ namespace SiemensWebAPI.Controllers
                         {
 
 
-                            dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).Quantity_Held += update.Quantity;
-                            dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_SW && w.ID_compartment == update.ID_SC).Quantity_Held -= update.Quantity;
+                            dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).Quantity_Held += update.Quantity;
+                            dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).Quantity_Held -= update.Quantity;
 
 
                             //dataDestination.FirstOrDefault().Destination.DateOfRessuply = dataSource.ElementAt(length_Supply - 1).Source.DateOfRessuply;
 
                             if (update.Quantity.ToString().Equals(LastSupplyQuantity))
                             {
-                                dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_SW && w.ID_compartment == update.ID_SC).ID_supply = dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_SW && w.ID_compartment == update.ID_SC).ID_supply.Remove(supplyes.Length - 2);
-                                dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
+                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).ID_supply = dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).ID_supply.Remove(supplyes.Length - 2);
+                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
                             }
 
                             else
                             {
-                                dbctx.Warehouses.First(w => w.ID_warehouse == update.ID_DW && w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
+                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
                             }
 
 
