@@ -17,7 +17,7 @@ namespace SiemensWebAPI.Controllers
             {
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
-                    List<ProductStockViewModel> allCurrentProducts = dbctx.ProductStocks.Select(entry => new ProductStockViewModel
+                    List<ProductStockViewModel> allCurrentProducts = dbctx.ProductStocks.OrderBy(dt => dt.ManufactureDate).Select(entry => new ProductStockViewModel
                     {
                         Name = entry.Name,
                         NumberOfBags = (int)entry.Number,
@@ -27,7 +27,7 @@ namespace SiemensWebAPI.Controllers
                     return Ok(allCurrentProducts);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Exception at ViewCurrentStock", ex.ToString());
                 return NotFound();
@@ -44,11 +44,14 @@ namespace SiemensWebAPI.Controllers
                 {
                     DateTime currentDate = DateTime.Now;
                     DateTime earliestDate = currentDate.AddDays(-30);
-                    List<ProductStock> products = dbctx.ProductStocks.Where(usr => usr.ManufactureDate <= currentDate && usr.ManufactureDate >= earliestDate).ToList();
-                    List<KeyValuePair<DateTime?, int?>> graph = new List<KeyValuePair<DateTime?, int?>>();
-                    graph = products.GroupBy(p => p.ManufactureDate)
-                                    .Select(p => new KeyValuePair<DateTime?, int?>(p.Key, p.Sum(prod => prod.Number))).ToList();
-                    return Ok(graph);
+                    var entries = dbctx.ProductStocks.Where(usr => (usr.ManufactureDate <= currentDate && usr.ManufactureDate >= earliestDate))
+                        .GroupBy(x => x.ManufactureDate).Select(entry => new
+                        {
+                            date = entry.Key,
+                            number = dbctx.ProductStocks.Where(date => date.ManufactureDate == entry.Key).Sum(count => count.Number)
+                        })
+                        .ToList();
+                    return Ok(entries);
                 }
             }
             catch (Exception ex)
