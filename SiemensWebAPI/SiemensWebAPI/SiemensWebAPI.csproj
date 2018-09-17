@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\OrdersManagementController.cs" />
     <Compile Include="Controllers\RecipeManagementController.cs" />
     <Compile Include="Controllers\StockViewController.cs" />
@@ -180,6 +181,9 @@
     <Compile Include="Helpers\UserManagementHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAccesLayer\Client.cs">
+      <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\DatabaseContext.Context.cs">
       <AutoGen>True</AutoGen>
@@ -217,6 +221,7 @@
     <Compile Include="Models\DataAccesLayer\Warehouse.cs">
       <DependentUpon>DatabaseContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DomainViewModels\ClientViewModel.cs" />
     <Compile Include="Models\DomainViewModels\ProductStockViewModel.cs" />
     <Compile Include="Models\DomainViewModels\RecipeViewModel.cs" />
     <Compile Include="Models\DomainViewModels\OrderViewModel.cs" />

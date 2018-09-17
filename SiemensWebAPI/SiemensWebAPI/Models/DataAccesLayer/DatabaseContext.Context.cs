@@ -32,5 +32,6 @@ namespace SiemensWebAPI.Models.DataAccesLayer
         public virtual DbSet<Supply> Supplies { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
     }
 }
