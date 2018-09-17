@@ -12,12 +12,9 @@ namespace SiemensWebAPI.Models.DataAccesLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class Client
     {
-        public int ID_order { get; set; }
-        public string Recipe { get; set; }
-        public int Amount { get; set; }
-    
-        public virtual ProductStock ProductStock { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

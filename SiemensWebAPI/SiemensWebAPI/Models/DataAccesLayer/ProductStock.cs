@@ -14,10 +14,19 @@ namespace SiemensWebAPI.Models.DataAccesLayer
     
     public partial class ProductStock
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductStock()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public Nullable<int> Number { get; set; }
         public string Recipe { get; set; }
         public Nullable<System.DateTime> ManufactureDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
