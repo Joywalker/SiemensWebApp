@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SiemensWebAPI.Models.DomainViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -48,6 +49,23 @@ namespace SiemensWebAPI.Helpers
             }
         }
 
+        public static void SucceededSales(SalesViewModel sale)
+        {
+            String today = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(LOGGER_FOLDER_PATH, true))
+            {
+                file.WriteLine(sale.ClientName + " a cumparat " + sale.Amount.ToString() + " de pungi de " + sale.Recipe + ".");
+            }
+        }
+
+        public static void FailedSales(string str)
+        {
+            String today = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(LOGGER_FOLDER_PATH, true))
+            {
+                file.WriteLine(str);
+            }
+        }
 
     }
 }
