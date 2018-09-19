@@ -9,7 +9,7 @@ namespace SiemensWebAPI.Controllers
 {
     public class SalesController : BaseController
     {
-        [Route("api/stock/updateStock")]
+        [Route("api/sales/sell")]
         [HttpPost]
         public IHttpActionResult UpdateStock(SalesViewModel prod)
         {
@@ -31,7 +31,7 @@ namespace SiemensWebAPI.Controllers
                         dbctx.ProductStocks.Where(p => p.Recipe.Equals(prod.Recipe)).FirstOrDefault().Number -= prod.Amount;
                         dbctx.SaveChanges();
                         LoggerHelper.SucceededSales(prod);
-                        return Ok("Succeeded");
+                        return Ok("TRUE");
                     }
 
                 }

@@ -67,7 +67,12 @@ namespace SiemensWebAPI.Controllers
             {
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
-                    var orders = dbctx.Orders.Select(order => order).ToList();
+                    var orders = dbctx.Orders.Select(order => new
+                    {
+                        ID_order = order.ID_order,
+                        Recipe = order.Recipe,
+                        Amount= order.Amount
+                    }).ToList();
                     if (orders != null)
                     {
                         return Ok(orders);

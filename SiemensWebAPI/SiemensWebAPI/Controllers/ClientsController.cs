@@ -9,17 +9,16 @@ namespace SiemensWebAPI.Controllers
 {
     public class ClientsController : BaseController
     {
-        [Route("api/client/selectClient")]
-        [HttpPost]
-        public IHttpActionResult SelectClient(ClientViewModel cln)
+        [Route("api/sales/getAllClients")]
+        [HttpGet]
+        public IHttpActionResult GetClients(ClientViewModel cln)
         {
             try
             {
                 using (DatabaseContext dbctx = new DatabaseContext())
                 {
-                    var client = dbctx.Clients.Where(c => c.Name.Equals(cln.Name))
-                                              .FirstOrDefault();
-                    return Ok(client);
+                    var clients = dbctx.Clients.Select(cl => cl.Name).ToList();
+                    return Ok(clients);
                 }
             }
             catch (Exception ex)
