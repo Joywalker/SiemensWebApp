@@ -17,5 +17,7 @@ namespace SiemensWebAPI.Models.DataAccesLayer
         public int ID_order { get; set; }
         public string Recipe { get; set; }
         public int Amount { get; set; }
+    
+        public virtual ProductStock ProductStock { get; set; }
     }
 }

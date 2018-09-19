@@ -2,21 +2,21 @@
   "Ingredients": [
     {
       "IngredientName": "Cartofi",
-      "Quantity": 20,
+      "Quantity": 2,
       "MeasurementUnit": "kg"
 
     },
 
      {
       "IngredientName": "Sare",
-      "Quantity": 10,
+      "Quantity": 1,
       "MeasurementUnit": "kg"
 
     },
 
      {
       "IngredientName": "Ulei",
-      "Quantity": 10,
+      "Quantity": 1,
       "MeasurementUnit": "kg"
 
     }
@@ -34,5 +34,5 @@
       "TimeMeasurementUnit": "hours"
     }
   ],
-  "RecipeName": "Chipsuri cu sare 200"
+  "RecipeName": "ChipsuriCuSare"
 }

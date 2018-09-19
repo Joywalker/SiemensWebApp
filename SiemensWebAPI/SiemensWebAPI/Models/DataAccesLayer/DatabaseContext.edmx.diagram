@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="1d402bd058394afeb3804222d6e36476" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="DatabaseModelModel.Feedstock" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModelModel.Order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModelModel.Product" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModelModel.ProductStock" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModelModel.Supply" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
@@ -14,6 +13,8 @@
         <EntityTypeShape EntityType="DatabaseModelModel.Warehouse" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="DatabaseModelModel.FK_Warehouse_Feedstock" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModelModel.FK_Supply_Warehouse" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DatabaseModelModel.Order" Width="1.5" PointX="7" PointY="9" />
+        <AssociationConnector Association="DatabaseModelModel.FK_Order_Order" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
