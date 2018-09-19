@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DatabaseModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DatabaseModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -138,10 +138,18 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Feedstock">
           <Key>
             <PropertyRef Name="ID" />
@@ -158,7 +166,7 @@
           <Property Name="ID_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Recipe" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Amount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProductStock" Relationship="DatabaseModelModel.FK_Order_Order" FromRole="Order" ToRole="ProductStock" />
+          <NavigationProperty Name="ProductStock" Relationship="Self.FK_Order_Order" FromRole="Order" ToRole="ProductStock" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -177,7 +185,7 @@
           <Property Name="Number" Type="Int32" />
           <Property Name="Recipe" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ManufactureDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Orders" Relationship="DatabaseModelModel.FK_Order_Order" FromRole="ProductStock" ToRole="Order" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Order" FromRole="ProductStock" ToRole="Order" />
         </EntityType>
         <EntityType Name="Supply">
           <Key>
@@ -228,6 +236,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_Order">
+          <End Role="ProductStock" Type="Self.ProductStock" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductStock">
+              <PropertyRef Name="Recipe" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Recipe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Supply_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
@@ -241,6 +261,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Feedstocks" EntityType="Self.Feedstock" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -252,41 +273,29 @@
             <End Role="Feedstock" EntitySet="Feedstocks" />
             <End Role="Warehouse" EntitySet="Warehouses" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order_Order" Association="Self.FK_Order_Order">
+            <End Role="ProductStock" EntitySet="ProductStocks" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_Supply_Warehouse" Association="Self.FK_Supply_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Supply" EntitySet="Supplies" />
           </AssociationSet>
-          <EntitySet Name="Clients" EntityType="DatabaseModelModel.Client" />
-          <AssociationSet Name="FK_Order_Order" Association="DatabaseModelModel.FK_Order_Order">
-            <End Role="ProductStock" EntitySet="ProductStocks" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Client">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_Order_Order">
-          <End Type="DatabaseModelModel.ProductStock" Role="ProductStock" Multiplicity="1" />
-          <End Type="DatabaseModelModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductStock">
-              <PropertyRef Name="Recipe" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Recipe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DatabaseModelModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="DatabaseModelModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Feedstocks">
             <EntityTypeMapping TypeName="DatabaseModelModel.Feedstock">
               <MappingFragment StoreEntitySet="Feedstock">
@@ -359,14 +368,6 @@
                 <ScalarProperty Name="ID_feedstock" ColumnName="ID_feedstock" />
                 <ScalarProperty Name="Quantity_Held" ColumnName="Quantity_Held" />
                 <ScalarProperty Name="ID_supply" ColumnName="ID_supply" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="DatabaseModelModel.Client">
-              <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

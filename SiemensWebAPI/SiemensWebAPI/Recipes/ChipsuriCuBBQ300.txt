@@ -13,5 +13,9 @@
       "TimeMeasurementUnit": "days"
     }
   ],
+<<<<<<< HEAD:SiemensWebAPI/SiemensWebAPI/Recipes/ChipsuriCuBBQ300.txt
   "RecipeName": "ChipsuriCuBBQ300"
+=======
+  "RecipeName": "ChipsuriCuBBQ"
+>>>>>>> feature/ServerAPI-005.OrdersManagementController:SiemensWebAPI/SiemensWebAPI/Recipes/ChipsuriCuBBQ300.txt
 }

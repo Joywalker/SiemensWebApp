@@ -25,6 +25,7 @@ namespace SiemensWebAPI.Models.DataAccesLayer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Feedstock> Feedstocks { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -32,6 +33,5 @@ namespace SiemensWebAPI.Models.DataAccesLayer
         public virtual DbSet<Supply> Supplies { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
-        public virtual DbSet<Client> Clients { get; set; }
     }
 }

@@ -46,7 +46,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="communicationModule">
+    <Reference Include="communicationModule, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\communicationModule\communicationModule\bin\Debug\communicationModule.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -181,6 +182,7 @@
     <Compile Include="Helpers\ClassValidatorHelper.cs" />
     <Compile Include="Helpers\LoggerHelper.cs" />
     <Compile Include="Helpers\OrdersManagementHelper.cs" />
+    <Compile Include="Helpers\ProductStockHelper.cs" />
     <Compile Include="Helpers\RecipeManagementHelper.cs" />
     <Compile Include="Helpers\StorageDataManagerHelper.cs" />
     <Compile Include="Helpers\UserManagementHelper.cs" />
@@ -188,43 +190,43 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\Client.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAccesLayer\DatabaseContext.Context.cs">
+    <Compile Include="Models\DataAccesLayer\DatabaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseContext.Context.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAccesLayer\DatabaseContext.cs">
+    <Compile Include="Models\DataAccesLayer\DatabaseModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAccesLayer\DatabaseContext.Designer.cs">
+    <Compile Include="Models\DataAccesLayer\DatabaseModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseContext.edmx</DependentUpon>
+      <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\Feedstock.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\Order.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\Product.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\ProductStock.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\Supply.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\UserAccount.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataAccesLayer\Warehouse.cs">
-      <DependentUpon>DatabaseContext.tt</DependentUpon>
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DomainViewModels\ClientViewModel.cs" />
     <Compile Include="Models\DomainViewModels\ProductStockViewModel.cs" />
@@ -243,15 +245,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Models\DataAccesLayer\DatabaseContext.Context.tt">
+    <Content Include="Models\DataAccesLayer\DatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseContext.edmx</DependentUpon>
-      <LastGenOutput>DatabaseContext.Context.cs</LastGenOutput>
+      <DependentUpon>DatabaseModel.edmx</DependentUpon>
+      <LastGenOutput>DatabaseModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DataAccesLayer\DatabaseContext.tt">
+    <Content Include="Models\DataAccesLayer\DatabaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseContext.edmx</DependentUpon>
-      <LastGenOutput>DatabaseContext.cs</LastGenOutput>
+      <DependentUpon>DatabaseModel.edmx</DependentUpon>
+      <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -265,12 +267,12 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\DataAccesLayer\DatabaseContext.edmx">
+    <EntityDeploy Include="Models\DataAccesLayer\DatabaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DatabaseContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>DatabaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DataAccesLayer\DatabaseContext.edmx.diagram">
-      <DependentUpon>DatabaseContext.edmx</DependentUpon>
+    <Content Include="Models\DataAccesLayer\DatabaseModel.edmx.diagram">
+      <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
   </ItemGroup>

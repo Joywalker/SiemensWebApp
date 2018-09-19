@@ -10,5 +10,10 @@ namespace SiemensWebAPI.Models.DomainViewModels
         public string Recipe { get; set; } // reteta dorita 
         public int Amount { get; set; }
         
+        public OrderViewModel(string recipe, int amount)
+        {
+            this.Recipe = recipe;
+            this.Amount = amount;
+        }
     }
 }

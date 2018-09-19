@@ -11,14 +11,10 @@ namespace SiemensWebAPI.Models.DataAccesLayer
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class UserAccount
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
-        [Required]
         public string Username { get; set; }
         public string Password { get; set; }
         public string CNP { get; set; }

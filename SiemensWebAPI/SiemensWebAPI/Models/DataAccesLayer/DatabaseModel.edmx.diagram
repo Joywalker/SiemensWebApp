@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1d402bd058394afeb3804222d6e36476" Name="Diagram1" ZoomLevel="72">
+      <Diagram DiagramId="50d464a77aeb4860907c9f640384132f" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModelModel.Client" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModelModel.Feedstock" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModelModel.Order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModelModel.Product" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModelModel.ProductStock" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.Order" Width="1.5" PointX="4.125" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.Product" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.ProductStock" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModelModel.Supply" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModelModel.UserAccount" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModelModel.UserAccount" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModelModel.Warehouse" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="DatabaseModelModel.FK_Warehouse_Feedstock" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModelModel.FK_Order_Order" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModelModel.FK_Supply_Warehouse" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DatabaseModelModel.Client" Width="1.5" PointX="7.375" PointY="0.75" />
-        <AssociationConnector Association="DatabaseModelModel.FK_Order_Order" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

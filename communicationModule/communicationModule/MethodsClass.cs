@@ -31,7 +31,11 @@ namespace communicationModule
                     return " ";
                 }
                 System.Messaging.Message mymessage = new System.Messaging.Message();
+<<<<<<< HEAD
                 mymessage = queue.Receive(new TimeSpan(0, 0, 5));
+=======
+                mymessage = queue.Receive();
+>>>>>>> feature/ServerAPI-005.OrdersManagementController
                 mymessage.Formatter = new XmlMessageFormatter(new String[] { "System.String, mscorlib" });
                 string msg = mymessage.Body.ToString();
                 return msg;
