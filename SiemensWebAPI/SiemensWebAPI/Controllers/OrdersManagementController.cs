@@ -12,9 +12,9 @@ using System.Net.Http;
 namespace SiemensWebAPI.Controllers
 {
     public class OrdersManagementController : BaseController
-    {                                 
-    [Route("api/orders/add")]
-    [HttpPost]
+    {
+        [Route("api/orders/add")]
+        [HttpPost]
         public IHttpActionResult Order(OrderViewModel order)
         {
             try
@@ -30,7 +30,10 @@ namespace SiemensWebAPI.Controllers
                         {
                             var NewIngredients = OrdersManagementHelper.ExtractIngredients(Ingredients, order.Amount);
                             RecipeViewModel NewRecipe = new RecipeViewModel(recipe.RecipeName, NewIngredients, recipe.Actions);
-                            OrdersManagementHelper.SendRecipe(RecipeManagementHelper.ParseObjectToStringForMSMQ(NewRecipe));
+                            string r = RecipeManagementHelper.ParseObjectToStringForMSMQ(NewRecipe);
+                            OrdersManagementHelper.globalRecipe = r;
+                            OrdersManagementHelper.Orders.Add(order);
+                            Thread.Sleep(5000);
                             return Ok("Am iesit!");
                         }
                         else
@@ -46,7 +49,7 @@ namespace SiemensWebAPI.Controllers
             {
                 Console.WriteLine("Exception in OrdersManagementControllere/api/Order", e.ToString());
                 return NotFound();
-            }            
+            }
         }
         [Route("api/orders/get")]
         [HttpGet]
@@ -60,7 +63,7 @@ namespace SiemensWebAPI.Controllers
                     {
                         ID_order = order.ID_order,
                         Recipe = order.Recipe,
-                        Amount= order.Amount
+                        Amount = order.Amount
                     }).ToList();
 
                     if (orders != null)
@@ -78,6 +81,6 @@ namespace SiemensWebAPI.Controllers
                 Console.WriteLine("Exception in OrdersManagementControllere/api/Orders/get", e.ToString());
                 return NotFound();
             }
-        }        
+        }
     }
 }

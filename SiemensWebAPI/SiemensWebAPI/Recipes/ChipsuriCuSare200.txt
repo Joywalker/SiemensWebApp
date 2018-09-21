@@ -1,21 +1,21 @@
 {
   "Ingredients": [
     {
-      "IngredientName": "Cartofi",
+      "IngredientName": "Potatoes",
       "Quantity": 20,
       "MeasurementUnit": "kg"
 
     },
 
      {
-      "IngredientName": "Sare",
+      "IngredientName": "Salt",
       "Quantity": 10,
       "MeasurementUnit": "kg"
 
     },
 
      {
-      "IngredientName": "Ulei",
+      "IngredientName": "Oil",
       "Quantity": 10,
       "MeasurementUnit": "kg"
 

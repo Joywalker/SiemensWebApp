@@ -52,7 +52,6 @@ namespace SiemensWebAPI.Helpers
                 file.WriteLine(sale.ClientName + " a cumparat " + sale.Amount.ToString() + " de pungi de " + sale.Recipe + ".");
             }
         }
-
         public static void FailedSales(string str)
         {
             String today = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");

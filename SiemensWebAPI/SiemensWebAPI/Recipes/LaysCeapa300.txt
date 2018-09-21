@@ -2,7 +2,7 @@
   "Ingredients": [
     {
       "IngredientName": "Potatoes",
-      "Quantity": 55,
+      "Quantity": 5,
       "MeasurementUnit": "kg"
     },
     {

@@ -10,13 +10,13 @@ namespace SiemensWebAPI.Helpers
 {
     public class OrdersManagementHelper
     {
+        public static String globalRecipe = "";
         public static List<OrderViewModel> Orders = new List<OrderViewModel>();
-        public static bool CmdInExecution = false; // nu avem comanda in executie
+        public static bool CmdInExecution = false; // nu avem comanda in executie      
         public static List<KeyValuePair<string, int>> OrderValidation(Ingredient[] Ingredients, int Amount)
         {
             int disponibil = 0;
             List<KeyValuePair<string, int>> kvpList = new List<KeyValuePair<string, int>>();
-
             using (DatabaseContext dbctx = new DatabaseContext())
             {
                 foreach (var ingredient in Ingredients)
@@ -26,13 +26,10 @@ namespace SiemensWebAPI.Helpers
                                     join feedstock in dbctx.Feedstocks on warehouse.ID_feedstock equals feedstock.ID
                                     where (feedstock.Name == ingredient.IngredientName)
                                     select new { Quantity = warehouse }).ToList();
-
                     // cantitatea totala a unui ingredient disponibila in toate depozitele
                     var sum = quantity.Select(q => q.Quantity.Quantity_Held).Sum();
-
                     // cantitatea de ingredient necesare retetei
                     var IngQuantity = OrdersManagementHelper.MeasurementUnit(ingredient.MeasurementUnit, (double)ingredient.Quantity);
-
                     // se verifica daca e cantitate disponibila in depozite
                     if (IngQuantity * Amount < sum) disponibil++;
                     else kvpList.Add(new KeyValuePair<string, int>(ingredient.IngredientName, sum.Value));
@@ -40,7 +37,6 @@ namespace SiemensWebAPI.Helpers
 
                 if (disponibil == Ingredients.Length) kvpList.Add(new KeyValuePair<string, int>("true", 0));
             }
-
             return kvpList;
         }
         public static double MeasurementUnit(String measurement, double quantity)
@@ -94,7 +90,6 @@ namespace SiemensWebAPI.Helpers
             string ss = ord.ElementAt(ord.Length - 1);
             Amount = Int32.Parse(ss);
             return Amount;
-
         }
         public static void OrderStatus(OrderViewModel order)
         {
@@ -102,14 +97,16 @@ namespace SiemensWebAPI.Helpers
             {
                 var idOrder = dbctx.Orders.Select(column => column.ID_order)
                                           .ToList();
+                var id = idOrder.LastOrDefault();
                 int initialAmount = order.Amount;
-                Thread.Sleep(2000);
+                LoggerHelper.Order(" a fost trimisa cu succes.", " Va avea id-ul " + (id + 1).ToString() + ".");
+                Thread.Sleep(30000);
                 MethodsClass mc = new MethodsClass();
-                String response = mc.ReceiveMessage();
+                string response = mc.ReceiveMessage();
                 if (response.StartsWith("0"))
                 {
                     OrdersManagementHelper.AddOrder(order);
-                    LoggerHelper.Order(" finalizata cu succes cu id-ul ", (idOrder.LastOrDefault() + 1).ToString() + "." + initialAmount + " produse cu reteta <<" + order.Recipe + ">> au fost create cu succes.");
+                    LoggerHelper.Order(" finalizata cu succes cu id-ul ", (id + 1).ToString() + "." + initialAmount + " produse cu reteta <<" + order.Recipe + ">> au fost create cu succes.");
                     ProductStockHelper.UpdateStock(order);
                     OrdersManagementHelper.CmdInExecution = false;
                 }
@@ -121,35 +118,35 @@ namespace SiemensWebAPI.Helpers
                     ProductStockHelper.UpdateStock(order);
                     OrdersManagementHelper.CmdInExecution = false;
                 }
-                OrdersManagementHelper.CmdInExecution = true;
+                else
+                {
+                    OrdersManagementHelper.CmdInExecution = true;
+                    SendRecipe(response);
+                }
             }
         }
         public static void SendRecipe(String recipe)
         {
             MethodsClass mc = new MethodsClass();
             mc.SendMessage(recipe);
-            LoggerHelper.Order(" a fost trimisa cu succes.", "");
-
         }
-        /*   public void CheckQueue(OrderViewModel order)
-           {
-               while(true)
-               {                
-                   MethodsClass mc = new MethodsClass();
-                   string message = mc.ReceiveMessage();
-                   if (OrdersManagementHelper.CmdInExecution == false)
-                   {
-                       OrdersManagementHelper.SendRecipe("cartofi|10|kg");
-                       OrdersManagementHelper.CmdInExecution = true;
-                       OrdersManagementHelper.OrderStatus(order), message);
-                       Thread.Sleep(10000);                   
-                   }
-                   else if (OrdersManagementHelper.CmdInExecution == true)
-                   {
-                       OrdersManagementHelper.CmdInExecution = true;
-                   }                               
-               }
-           }       
-           */
+        public static void CheckQueue(List<OrderViewModel> ords)
+        {
+            while (true)
+            {
+                if (ords.Count >= 1)
+                {
+                    if (OrdersManagementHelper.CmdInExecution == false)
+                    {
+                        if (globalRecipe != null && globalRecipe != "")
+                        {
+                            SendRecipe(globalRecipe);                          
+                            OrderStatus(ords.ElementAt(0));
+                            ords.RemoveAt(0);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
