@@ -57,6 +57,7 @@ namespace SiemensWebAPI.Helpers
         }
         public static Ingredient[] ExtractIngredients(Ingredient[] Ingredients, int Amount)
         {
+            int TotalQuantity = 0;
             using (DatabaseContext dbctx = new DatabaseContext())
             {
                 foreach (var ingredient in Ingredients)
@@ -65,7 +66,15 @@ namespace SiemensWebAPI.Helpers
                                     join feedstock in dbctx.Feedstocks on warehouse.ID_feedstock equals feedstock.ID
                                     where (feedstock.Name == ingredient.IngredientName)
                                     select new { Quantity = warehouse }).ToList();
-                    int TotalQuantity = Convert.ToInt32(OrdersManagementHelper.MeasurementUnit(ingredient.MeasurementUnit, ingredient.Quantity) * Amount);
+                    double qtty = MeasurementUnit(ingredient.MeasurementUnit, ingredient.Quantity) * Amount;
+                    if (qtty < 1)
+                    {
+                        TotalQuantity = 1;
+                    }
+                    else
+                    {
+                        TotalQuantity = (int)Math.Ceiling(qtty);
+                    }
                     for (int i = 0; i < quantity.Count(); i++)
                     {
                         if (quantity.ElementAt(i).Quantity.Quantity_Held <= TotalQuantity)
@@ -77,7 +86,11 @@ namespace SiemensWebAPI.Helpers
                         else quantity.ElementAt(i).Quantity.Quantity_Held -= TotalQuantity;
                         TotalQuantity = 0;
                     }
-                    ingredient.Quantity = Convert.ToInt32(OrdersManagementHelper.MeasurementUnit(ingredient.MeasurementUnit, ingredient.Quantity) * Amount);
+                    if (qtty < 1)
+                        ingredient.Quantity = 1;
+                    else
+                        ingredient.Quantity = (int)Math.Ceiling(qtty);
+                    ingredient.MeasurementUnit = "kg";
                     dbctx.SaveChanges();
                 }
             }
@@ -100,7 +113,7 @@ namespace SiemensWebAPI.Helpers
                 var id = idOrder.LastOrDefault();
                 int initialAmount = order.Amount;
                 LoggerHelper.Order(" a fost trimisa cu succes.", " Va avea id-ul " + (id + 1).ToString() + ".");
-                Thread.Sleep(30000);
+                Thread.Sleep(3000);
                 MethodsClass mc = new MethodsClass();
                 string response = mc.ReceiveMessage();
                 if (response.StartsWith("0"))

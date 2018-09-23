@@ -11,8 +11,8 @@ namespace SiemensWebAPI
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            Thread thread = new Thread(() => OrdersManagementHelper.CheckQueue(OrdersManagementHelper.Orders));
-            thread.Start();
+            //Thread thread = new Thread(() => OrdersManagementHelper.CheckQueue(OrdersManagementHelper.Orders));
+            //thread.Start();
             filters.Add(new HandleErrorAttribute());
         }
     }

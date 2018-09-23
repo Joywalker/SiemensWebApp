@@ -2,25 +2,30 @@
   "Ingredients": [
     {
       "IngredientName": "Potatoes",
-      "Quantity": 5,
+      "Quantity": 1,
       "MeasurementUnit": "kg"
     },
     {
-      "IngredientName": "Cheese",
-      "Quantity": 1,
+      "IngredientName": "Sunflower Oil",
+      "Quantity": 10,
       "MeasurementUnit": "g"
     },
     {
-      "IngredientName": "Pepper",
-      "Quantity": 11,
+      "IngredientName": "BBQ",
+      "Quantity": 10,
+      "MeasurementUnit": "g"
+    },
+    {
+      "IngredientName": "Salt",
+      "Quantity": 1,
       "MeasurementUnit": "g"
     }
   ],
   "Actions": [
     {
       "ActionName": "Mix",
-      "Duration": 2,
-      "TimeMeasurementUnit": "hours"
+      "Duration": 10,
+      "TimeMeasurementUnit": "min"
     },
     {
       "ActionName": "Cook",
@@ -28,5 +33,5 @@
       "TimeMeasurementUnit": "hours"
     }
   ],
-  "RecipeName": "LaysCeapa300"
+  "RecipeName": "LaysBBQ200"
 }

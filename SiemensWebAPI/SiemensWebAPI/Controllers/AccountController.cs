@@ -36,7 +36,7 @@ namespace SiemensWebAPI.Controllers
                 LoggerHelper.UserAction(usr.Username, "Autentificare esuata ");
                 return NotFound();
             }
-            return Ok();
+            return Ok("FALSE");
         }
 
         [HttpPut]

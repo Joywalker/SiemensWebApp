@@ -34,7 +34,7 @@ namespace SiemensWebAPI.Controllers
                             OrdersManagementHelper.globalRecipe = r;
                             OrdersManagementHelper.Orders.Add(order);
                             Thread.Sleep(5000);
-                            return Ok("Am iesit!");
+                            return Ok("OK");
                         }
                         else
                         {
