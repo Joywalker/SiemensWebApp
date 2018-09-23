@@ -1,0 +1,37 @@
+{
+  "Ingredients": [
+    {
+      "IngredientName": "Potatoes",
+      "Quantity": 1,
+      "MeasurementUnit": "kg"
+    },
+    {
+      "IngredientName": "Salt",
+      "Quantity": 10,
+      "MeasurementUnit": "g"
+    },
+    {
+      "IngredientName": "Sunflower Oil",
+      "Quantity": 100,
+      "MeasurementUnit": "g"
+    },
+    {
+      "IngredientName": "Pepper",
+      "Quantity": 60,
+      "MeasurementUnit": "g"
+    }
+  ],
+  "Actions": [
+    {
+      "ActionName": "Mix",
+      "Duration": 20,
+      "TimeMeasurementUnit": "min"
+    },
+    {
+      "ActionName": "Cook",
+      "Duration": 50,
+      "TimeMeasurementUnit": "min"
+    }
+  ],
+  "RecipeName": "LaysPepper100"
+}

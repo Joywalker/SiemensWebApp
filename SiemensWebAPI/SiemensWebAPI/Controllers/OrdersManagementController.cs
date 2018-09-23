@@ -33,7 +33,7 @@ namespace SiemensWebAPI.Controllers
                             string r = RecipeManagementHelper.ParseObjectToStringForMSMQ(NewRecipe);
                             OrdersManagementHelper.globalRecipe = r;
                             OrdersManagementHelper.Orders.Add(order);
-                            Thread.Sleep(5000);
+                            Thread.Sleep(2000);
                             return Ok("OK");
                         }
                         else

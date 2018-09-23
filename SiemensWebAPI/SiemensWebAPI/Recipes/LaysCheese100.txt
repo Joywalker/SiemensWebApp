@@ -1,0 +1,32 @@
+{
+  "Ingredients": [
+    {
+      "IngredientName": "Potatoes",
+      "Quantity": 1,
+      "MeasurementUnit": "kg"
+    },
+    {
+      "IngredientName": "Sunflower Oil",
+      "Quantity": 100,
+      "MeasurementUnit": "g"
+    },
+    {
+      "IngredientName": "Cheese",
+      "Quantity": 300,
+      "MeasurementUnit": "g"
+    }
+  ],
+  "Actions": [
+    {
+      "ActionName": "Mix",
+      "Duration": 20,
+      "TimeMeasurementUnit": "min"
+    },
+    {
+      "ActionName": "Cook",
+      "Duration": 30,
+      "TimeMeasurementUnit": "min"
+    }
+  ],
+  "RecipeName": "LaysCheese100"
+}

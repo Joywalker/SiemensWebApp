@@ -1,0 +1,32 @@
+{
+  "Ingredients": [
+    {
+      "IngredientName": "Potatoes",
+      "Quantity": 2,
+      "MeasurementUnit": "kg"
+    },
+    {
+      "IngredientName": "Sunflower Oil",
+      "Quantity": 50,
+      "MeasurementUnit": "g"
+    },
+    {
+      "IngredientName": "Salt",
+      "Quantity": 20,
+      "MeasurementUnit": "g"
+    }
+  ],
+  "Actions": [
+    {
+      "ActionName": "Mix",
+      "Duration": 20,
+      "TimeMeasurementUnit": "min"
+    },
+    {
+      "ActionName": "Cook",
+      "Duration": 50,
+      "TimeMeasurementUnit": "min"
+    }
+  ],
+  "RecipeName": "LaysSalt300"
+}

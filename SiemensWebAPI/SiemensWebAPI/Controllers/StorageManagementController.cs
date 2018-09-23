@@ -132,7 +132,7 @@ namespace SiemensWebAPI.Controllers
 
                         // materia prima ce trebuie mutata
                         string id_material = dbctx.Warehouses.Where(comp => comp.ID_compartment.Equals(update.ID_DC))
-                                                          .Join(dbctx.Feedstocks, wh => wh.ID_feedstock, fs => fs.ID, (wh,fs)=> new { wh, fs })
+                                                          .Join(dbctx.Feedstocks, wh => wh.ID_feedstock, fs => fs.ID, (wh, fs) => new { wh, fs })
                                                           .Where(whAndfs => whAndfs.fs.ID == whAndfs.wh.ID_feedstock)
                                                           .Select(column => column.fs.Name).First(); // materia prima ce trebuie mutata
 
@@ -155,24 +155,31 @@ namespace SiemensWebAPI.Controllers
                         int quantitySource = dbctx.Warehouses
                                                         .Where(comp => comp.ID_compartment.Equals(update.ID_SC))
                                                         .Select(column => column.Quantity_Held).First().Value;
-
+                        String LastSupplyQuantity;
+                        if (dataSource.Count == 1)
+                        {
+                            LastSupplyQuantity = dataSource.ElementAt(0).Source.Quantity;
+                        }
+                        else
+                            LastSupplyQuantity = dataSource.ElementAt(sup.Length - 2).Source.Quantity;
                         // cantitatea de la utima aprovizionare a compartimentului din depozitul sursa
-                        var LastSupplyQuantity = dataSource.ElementAt(sup.Length - 1).Source.Quantity;
+
                         if (update.MaterialName == id_material && update.Quantity < quantitySource)
 
                         {
-                            LoggerHelper.UpdateWarehouse(update.MaterialName ,update.ID_SC, update.ID_SC, update.ID_DC, update.ID_DC);
+                            LoggerHelper.UpdateWarehouse(update.MaterialName, update.ID_SC, update.ID_SC, update.ID_DC, update.ID_DC);
                             dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).Quantity_Held += update.Quantity;
                             dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).Quantity_Held -= update.Quantity;
 
                             if (update.Quantity.ToString().Equals(LastSupplyQuantity))
                             {
                                 dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).ID_supply = dbctx.Warehouses.First(w => w.ID_compartment == update.ID_SC).ID_supply.Remove(supplyes.Length - 2);
-                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
                             }
                             else
                             {
-                                dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
+                                var ID_supply = dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply.Split('|').Last();
+                                if (ID_supply != supplyes.ElementAt(supplyes.Length - 1).ToString())
+                                    dbctx.Warehouses.First(w => w.ID_compartment == update.ID_DC).ID_supply += "|" + supplyes.ElementAt(supplyes.Length - 1);
                             }
                             dbctx.SaveChanges();
                             return Ok("Ok");

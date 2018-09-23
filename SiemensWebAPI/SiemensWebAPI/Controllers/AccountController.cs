@@ -5,11 +5,13 @@ using SiemensWebAPI.Models.DomainViewModels;
 using SiemensWebAPI.Helpers;
 using SiemensWebAPI.Models.DataAccesLayer;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace SiemensWebAPI.Controllers
 {
     public class AccountController : BaseController
     {
+        private static String LOGIN_FAILED = "FAILED";
         [Route("api/user/login")]
         [HttpPost]
         public IHttpActionResult Login(Models.UserViewModel usr)
@@ -34,9 +36,9 @@ namespace SiemensWebAPI.Controllers
             {
                 Console.WriteLine("Exception in AccountController/api/User/Login", ex.ToString());
                 LoggerHelper.UserAction(usr.Username, "Autentificare esuata ");
-                return NotFound();
+                return Ok(LOGIN_FAILED);
             }
-            return Ok("FALSE");
+            return Ok(LOGIN_FAILED);
         }
 
         [HttpPut]
@@ -62,7 +64,7 @@ namespace SiemensWebAPI.Controllers
             {
                 Console.WriteLine("Exception in AccountController/GetAll", ex.ToString());
             }
-            return NotFound();
+            return Ok(LOGIN_FAILED);
         }
 
         [HttpPost]
@@ -87,7 +89,7 @@ namespace SiemensWebAPI.Controllers
             {
                 Console.WriteLine("Exception in AccountController/GetAll", ex.ToString());              
             }
-            return NotFound();
+            return Ok(LOGIN_FAILED);
         }
 
         [HttpPost]
